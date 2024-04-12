@@ -43,13 +43,13 @@ class CategoryController extends Controller
     {
         return(view('admin.categories.show', ['category' => Category::findOrFail($id)]));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return(view('admin.categories.edit', ['category' => Category::findOrFail($id)]));
     }
 
     /**
