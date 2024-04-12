@@ -8,5 +8,10 @@
 </head>
 <body>
     Categories 
+    <a href="{{route('categories.create')}}">Add Category</a>
+    <hr>
+    @foreach ($categories as $category)
+        <h4>Name: {{ $category->name }}</h4>
+    @endforeach
 </body>
 </html>
