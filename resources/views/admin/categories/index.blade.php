@@ -12,6 +12,7 @@
     <hr>
     @foreach ($categories as $category)
         <h4>Name: {{ $category->name }}</h4>
+        <a href="{{route('categories.show', ["category" => $category->id])}}">Show</a>
     @endforeach
 </body>
 </html>
