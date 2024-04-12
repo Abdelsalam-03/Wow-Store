@@ -9,7 +9,10 @@
 <body>
     <form action="{{route('categories.store')}}" method="POST">
         @csrf
-        <input type="text" name="name">
+        <input type="text" name="name" value="{{old('name')}}">
+        @error('name')
+            {{$message}}
+        @enderror
         <input type="submit" value="Add">
     </form>
 </body>
