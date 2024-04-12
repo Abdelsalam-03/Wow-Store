@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,4 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('categories', CategoryController::class);
-// Route::get('/categories', [CategoryController::class, 'index']);
+Route::resource('products', ProductController::class);
