@@ -57,7 +57,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required',],
+        ]);
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->save();
+        return redirect(route('categories.show', ['category' => $id]));
     }
 
     /**
