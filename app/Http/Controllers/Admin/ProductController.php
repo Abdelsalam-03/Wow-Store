@@ -64,7 +64,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'price' => ['required', 'numeric'],
+            'category' => ['required', 'numeric'],
+        ]);
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->category_id = $request->category;
+        $product->save();
+        return redirect(route('products.index'));
     }
 
     /**
