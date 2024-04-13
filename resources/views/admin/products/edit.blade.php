@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="{{route('products.update', ['product' => $product->id])}}" method="POST">
-        @method('UPDATE')
+        @method('PUT')
         @csrf
         <input type="text" name="name" value="{{$product->name}}">
         @error('name')
