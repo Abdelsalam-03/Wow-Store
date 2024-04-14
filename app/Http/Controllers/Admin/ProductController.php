@@ -34,11 +34,13 @@ class ProductController extends Controller
             'name' => ['required'],
             'price' => ['required', 'numeric'],
             'category' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
         ]);
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'category_id' => $request->category,
+            'quantity' => $request->quantity,
         ]);
         return redirect(route('products.index'));
     }
@@ -68,11 +70,13 @@ class ProductController extends Controller
             'name' => ['required'],
             'price' => ['required', 'numeric'],
             'category' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
         ]);
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->price = $request->price;
         $product->category_id = $request->category;
+        $product->quantity = $request->quantity;
         $product->save();
         return redirect(route('products.index'));
     }
