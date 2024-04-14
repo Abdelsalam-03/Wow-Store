@@ -24,6 +24,10 @@
                 </option>
             @endforeach
         </select>
+        <input type="number" name="quantity" value="{{old('quantity')}}">
+        @error('quantity')
+            {{$message}}
+        @enderror
         <input type="submit" value="Add">
     </form>
 </body>

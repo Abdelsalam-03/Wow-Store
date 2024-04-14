@@ -14,6 +14,7 @@
         <h4>Name: {{ $product->name }}</h4>
         <h4>Price: {{ $product->price }}</h4>
         <h4>Category: {{ $product->category->name }}</h4>
+        <h4>Quantity: {{ $product->quantity }}</h4>
         <a href="{{route('products.show', ["product" => $product->id])}}">Show</a>
         <a href="{{route('products.edit', ["product" => $product->id])}}">Edit</a>
         <form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="POST">

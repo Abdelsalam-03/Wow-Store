@@ -10,5 +10,6 @@
     <h1>{{ $product->name }}</h1>
     <h1>{{ $product->price }}</h1>
     <h1>{{ $product->category->name }}</h1>
+    <h1>{{ $product->quantity }}</h1>
 </body>
 </html>

@@ -25,6 +25,10 @@
                 </option>
             @endforeach
         </select>
+        <input type="number" name="quantity" value="{{ $product->quantity }}">
+        @error('quantity')
+            {{$message}}
+        @enderror
         <input type="submit" value="Update">
     </form>
 </body>
