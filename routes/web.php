@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\ProfileController;
@@ -25,3 +26,6 @@ Route::prefix('admin/')->group(function(){
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('products', AdminProductController::class);
 });
+
+Route::get('/categories', UserCategoryController::class . '@index')->name('categories');
+Route::get('/categories/{category}', UserCategoryController::class . '@show')->name('category');
