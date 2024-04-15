@@ -28,6 +28,8 @@
         @error('quantity')
             {{$message}}
         @enderror
+        <label for="return">Return to this page</label>
+        <input type="checkbox" name="return" id="return" @checked(isset($checked))>
         <input type="submit" value="Add">
     </form>
 </body>
