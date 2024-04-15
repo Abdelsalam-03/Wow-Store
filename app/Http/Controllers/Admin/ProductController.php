@@ -42,6 +42,9 @@ class ProductController extends Controller
             'category_id' => $request->category,
             'quantity' => $request->quantity,
         ]);
+        if (isset($request->return)) {
+            return view('admin.products.create', ['categories' => Category::all(), 'checked' => true]);
+        }
         return redirect(route('products.index'));
     }
 
