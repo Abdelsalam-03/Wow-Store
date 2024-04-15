@@ -8,7 +8,7 @@
 </head>
 <body>
     @foreach ($categories as $category)
-        <a href="{{ route('category', ['category' => $category->id]) }}"><h1>{{ $category->name }}</h1></a>
+        <a href="{{ route('user.category', ['category' => $category->id]) }}"><h1>{{ $category->name }}</h1></a>
     @endforeach
 </body>
 </html>

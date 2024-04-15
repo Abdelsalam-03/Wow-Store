@@ -11,7 +11,7 @@
         {{ $product->name }}<br>
         {{ $product->price }}<br>
         {{ $product->category->name }}<br>
-        <a href="{{ route('product', ['product' => $product->id]) }}">View</a>
+        <a href="{{ route('user.product', ['product' => $product->id]) }}">View</a>
         <hr>
     @endforeach
 </body>
