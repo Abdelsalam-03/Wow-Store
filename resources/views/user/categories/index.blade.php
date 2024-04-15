@@ -8,7 +8,7 @@
 </head>
 <body>
     @foreach ($categories as $category)
-        <h1>{{ $category->name }}</h1>
+        <a href="{{ route('category', ['category' => $category->id]) }}"><h1>{{ $category->name }}</h1></a>
     @endforeach
 </body>
 </html>
