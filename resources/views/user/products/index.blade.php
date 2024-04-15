@@ -7,6 +7,11 @@
     <title>Products</title>
 </head>
 <body>
+    <form action="" method="GET">
+        <input type="text" name="query" id="">
+        <input type="submit" value="Search">
+    </form>
+    <hr>
     @foreach ($products as $product)
         {{ $product->name }}<br>
         {{ $product->price }}<br>
