@@ -13,6 +13,8 @@
         @error('name')
             {{$message}}
         @enderror
+        <label for="return">Return to this page</label>
+        <input type="checkbox" name="return" id="return">
         <input type="submit" value="Add">
     </form>
 </body>
