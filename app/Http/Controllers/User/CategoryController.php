@@ -11,4 +11,10 @@ class CategoryController extends Controller
     function index(){
         return view('user.categories.index', ['categories' => Category::all()]);
     }
+
+    function show(Request $request){
+        $category = Category::findOrFail($request->category);
+        return view('user.categories.show', ['category' => $category, 'products' => $category->products]);
+    }
+
 }
