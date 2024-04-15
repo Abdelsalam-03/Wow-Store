@@ -33,6 +33,9 @@ class CategoryController extends Controller
             'name' => ['required', 'unique:categories',],
         ]);
         Category::create(['name' => $request->name]);
+        if (isset($request->return)) {
+            return view('admin.categories.create', ['checked' => true]);
+        }
         return redirect(route('categories.index'));
     }
 
