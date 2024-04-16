@@ -32,4 +32,10 @@ class CartController extends Controller
             return response()->json(['error' => 'Validation Error'], 400);
         }
     }
+
+    function destroy(){
+        Cart::where('user_id', '=', Auth::id())->delete();
+        return response()->json(['message' => 'Cart Destroyed successfully']);
+    }
+
 }
