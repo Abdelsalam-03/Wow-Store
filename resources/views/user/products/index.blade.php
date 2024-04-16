@@ -12,6 +12,8 @@
         <input type="submit" value="Search">
     </form>
     <hr>
+    <button onclick="destroyCart()">Empty Cart</button>
+    <hr>
     @foreach ($products as $product)
         {{ $product->name }}<br>
         {{ $product->price }}<br>
@@ -38,6 +40,24 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+        function destroyCart() {
+            if (window.confirm("Are You Sure Want To Descard Card Content?")) {
+                fetch('/cart/destroy', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
         }
     </script>
 </body>
