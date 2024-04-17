@@ -38,6 +38,13 @@ class CartController extends Controller
         }
     }
 
+    function remove(string $id){
+        Cart::where('product_id', '=', $id)
+            ->where('user_id', '=', Auth::id())
+            ->delete();
+        return response()->json(['message' => 'product Removed Successfully']);
+    }
+
     function destroy(){
         Cart::where('user_id', '=', Auth::id())->delete();
         return response()->json(['message' => 'Cart Destroyed successfully']);
