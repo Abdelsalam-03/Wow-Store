@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/all', [CartController::class, 'index']);
     Route::post('/cart/add', [CartController::class, 'add']);
     Route::delete('/cart/destroy', [CartController::class, 'destroy']);
-    Route::put('/cart/update', [CartController::class, 'update']);
+    
 });
 
 require __DIR__.'/auth.php';
