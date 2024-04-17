@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
+    function index(){
+        return response()->json(Auth::user()->cartContent);
+    }
+
     function add(REQUEST $request){
         $data = $request->all();
         $product = Product::find($data['productId']);
