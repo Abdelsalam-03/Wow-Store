@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
-    function index(){
+    function all(){
         return response()->json(Auth::user()->cartContent);
     }
 

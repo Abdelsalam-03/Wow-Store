@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/cart/all', [CartController::class, 'index']);
+    Route::get('/cart/all', [CartController::class, 'all']);
     Route::post('/cart/add', [CartController::class, 'add']);
     Route::delete('/cart/destroy', [CartController::class, 'destroy']);
     Route::delete('/cart/{id}', [CartController::class, 'remove']);
