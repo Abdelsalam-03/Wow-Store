@@ -18,6 +18,10 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <!-- Functions Js -->
+        <script src="{{ asset('js/master.js') }}"></script>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -40,6 +44,5 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/master.js') }}"></script>
     </body>
 </html>
