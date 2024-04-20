@@ -2,7 +2,7 @@
     <div class="card h-100">
         <a href="{{ route('user.product', ['product' => $product->id]) }}">
         <!-- Product image-->
-        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+        <img class="card-img-top" src="{{$product->photo? asset('storage/' . $product->photo) : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'}}" alt="..." />
         <!-- Product details-->
         </a>
         <div class="card-body p-4">
