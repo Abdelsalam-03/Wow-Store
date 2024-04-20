@@ -6,11 +6,12 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,9 +29,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin/')->group(function(){
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('products', AdminProductController::class);
+Route::middleware(['auth', admin::class])->group(function (){
+    Route::prefix('admin/')->group(function(){
+        Route::resource('/categories', AdminCategoryController::class);
+        Route::resource('products', AdminProductController::class);
+    });
 });
 
 Route::get('/categories', UserCategoryController::class . '@index')->name('user.categories');
