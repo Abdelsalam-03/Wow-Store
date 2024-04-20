@@ -7,12 +7,15 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RedirectController;
 use App\Http\Middleware\admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/redirect', RedirectController::class)->name('redirect');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,7 +35,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', admin::class])->group(function (){
     Route::prefix('admin/')->group(function(){
-        Route::get('/', AdminHomeController::class);
+        Route::get('/', AdminHomeController::class)->name('admin.home');
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('products', AdminProductController::class);
     });
