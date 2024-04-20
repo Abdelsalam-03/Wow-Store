@@ -20,7 +20,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
         <!-- Functions Js -->
-        <script src="{{ asset('js/master.js') }}"></script>
+        <script src="{{ asset('js/functions.js') }}"></script>
 
     </head>
     <body class="font-sans antialiased">
