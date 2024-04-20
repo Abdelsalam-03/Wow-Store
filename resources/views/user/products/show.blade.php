@@ -11,13 +11,16 @@
                         <span>{{ $product->price }}</span>
                     </div>
                     <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="addToCart({{$product->id}})">
+                    <form action="{{ route('cart.add') }}" method="POST" class="d-flex">
+                        @csrf
+                        <input class="form-control text-center me-3 rounded" name="quantity" id="inputQuantity" value="1" style="max-width: 5rem" />
+                        <input type="hidden" name="productId" value="{{ $product->id }}">
+                        <input type="hidden" name="toHome" value="1">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

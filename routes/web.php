@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/cart/all', [CartController::class, 'all']);
-    Route::post('/cart/add', [CartController::class, 'add']);
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::delete('/cart/destroy', [CartController::class, 'destroy']);
     Route::delete('/cart/{id}', [CartController::class, 'remove']);
 });
