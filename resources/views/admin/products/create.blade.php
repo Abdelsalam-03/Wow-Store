@@ -46,8 +46,8 @@
             {{$message}}
         @enderror
         <label for="photo" class="form-label">Photo</label>
-            <input type="file" name="image" class="form-control image" id="photo" value="{{old('photo')}}">
-            <input type="hidden" name="photo" class="imageField">
+        <input type="file" name="image" class="form-control image" id="photo" value="{{old('photo')}}">
+        <input type="hidden" name="photo" class="imageField">
         <textarea name="description" id="" cols="30" rows="10"></textarea>    
         <label for="return">Return to this page</label>
         <input type="checkbox" name="return" id="return">
@@ -132,8 +132,8 @@
 
     $("#crop").click(function() {
         canvas = cropper.getCroppedCanvas({
-            width: 450,
-            height: 300,
+            width: 600,
+            height: 400,
         });
 
         canvas.toBlob(function(blob) {

@@ -10,7 +10,7 @@
                         <span class="text-decoration-line-through text-secondary">{{ $product->price + floor($product->price / 10) }}</span>
                         <span>{{ $product->price }}</span>
                     </div>
-                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                    <p class="lead">{{ isset($product->description) ? $product->description : "" }}</p>
                     <form action="{{ route('cart.add') }}" method="POST" class="d-flex">
                         @csrf
                         <input class="form-control text-center me-3 rounded" name="quantity" id="inputQuantity" value="1" style="max-width: 5rem" />

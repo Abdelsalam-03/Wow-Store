@@ -36,6 +36,8 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'category' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
+            'photo' => ['required'],
+            'description' => ['required'],
         ]);
 
         $image_parts = explode(";base64,", $request->photo);
@@ -51,6 +53,7 @@ class ProductController extends Controller
             'category_id' => $request->category,
             'quantity' => $request->quantity,
             'photo' => $name,
+            'description' => $request->description,
         ]);
         if (isset($request->return)) {
             return redirect(route('products.create'));
