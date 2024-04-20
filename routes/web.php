@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', admin::class])->group(function (){
     Route::prefix('admin/')->group(function(){
+        Route::get('/', AdminHomeController::class);
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('products', AdminProductController::class);
     });
