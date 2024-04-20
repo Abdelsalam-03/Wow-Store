@@ -49,7 +49,7 @@
             <input type="file" name="image" class="form-control image" id="photo" value="{{old('photo')}}">
             <input type="hidden" name="photo" class="imageField">
         <label for="return">Return to this page</label>
-        <input type="checkbox" name="return" id="return" @checked(isset($checked))>
+        <input type="checkbox" name="return" id="return">
         <input type="submit" value="Add">
     </form>
     

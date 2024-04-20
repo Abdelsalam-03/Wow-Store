@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,16 +37,26 @@ class ProductController extends Controller
             'category' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
         ]);
+
+        $image_parts = explode(";base64,", $request->photo);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $name = 'products/' . time() . uniqid() . '.' . $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+
+        Storage::put('public/' . $name, $image_base64);
+
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'category_id' => $request->category,
             'quantity' => $request->quantity,
+            'photo' => $name,
         ]);
         if (isset($request->return)) {
-            return view('admin.products.create', ['categories' => Category::all(), 'checked' => true]);
+            return redirect(route('products.create'));
+        } else {
+            return redirect(route('products.index'));
         }
-        return redirect(route('products.index'));
     }
 
     /**
