@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LiveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Middleware\admin;
@@ -45,3 +46,5 @@ Route::get('/categories/{category}', UserCategoryController::class . '@show')->n
 
 Route::get('/products', UserProductController::class . '@index')->name('user.products');
 Route::get('/products/{product}', UserProductController::class . '@show')->name('user.product');
+
+Route::get('/livesearch', [LiveController::class, 'liveSearch']);
