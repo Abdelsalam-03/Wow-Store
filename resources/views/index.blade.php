@@ -1,9 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
         <form action="" method="GET">
-            <input type="text" name="query" id="">
+            <input type="text" name="query" id="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="removeLiveSearchContent()">
             <input type="submit" value="Search">
         </form>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+              <div class="modal-content">
+                <div class="modal-header">
+                  {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> --}}
+                  <input type="text" name="query" id="live-search-input" class="form-control">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div id="live-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </x-slot>
 <style>    
     .hide-scrollbar::-webkit-scrollbar {
@@ -49,5 +67,6 @@
     </div>
     <script>
         cart();
+        liveSearchListener();
     </script>
 </x-app-layout>
