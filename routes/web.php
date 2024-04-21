@@ -12,9 +12,6 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Middleware\admin;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/redirect', RedirectController::class)->name('redirect');

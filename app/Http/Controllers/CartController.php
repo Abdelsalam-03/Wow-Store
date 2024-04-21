@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -17,21 +18,23 @@ class CartController extends Controller
     function add(REQUEST $request){
         $data = $request->all();
         $product = Product::find($data['productId']);
-        $quantity = $request->quantity ? intval($request->quantity) : 1; 
+        $quantity = $request->quantity ? intval($request->quantity) : 1;
         if ($product) {
-            $productOnCart = Cart::where([
-                ['product_id', '=', $product->id],
-                ['user_id', '=', Auth::id()],
-                ])
-                ->get()
-                ->first();
+            $productOnCart = Cart::where('user_id', '=', Auth::id())
+            ->where('product_id', '=', $product->id)
+            ->get()
+            ->first();
             if ($productOnCart) {
                 $productOnCart->quantity = $productOnCart->quantity + $quantity; 
                 $productOnCart->save();
                 if (isset($data['toHome'])) {
                     return redirect('/products');
                 } else {
-                    return response()->json([Auth::user()->cartContent]);
+                    return response()->json([DB::table('carts')
+                    ->join('products', 'products.id', '=', 'carts.product_id')
+                    ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as product_name', 'products.price', 'products.photo')
+                    ->where('carts.user_id', '=', Auth::id())
+                    ->get()]);
                 }
             } else {
                 Cart::create(['product_id' => $product->id, 'user_id' => Auth::id(), 'quantity' => $quantity]);

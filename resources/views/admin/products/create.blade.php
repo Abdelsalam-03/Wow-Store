@@ -41,8 +41,8 @@
                 </option>
             @endforeach
         </select>
-        <input type="number" name="quantity" value="{{old('quantity')}}">
-        @error('quantity')
+        <input type="number" name="stock" value="{{old('stock')}}">
+        @error('stock')
             {{$message}}
         @enderror
         <label for="photo" class="form-label">Photo</label>

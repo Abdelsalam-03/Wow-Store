@@ -13,7 +13,7 @@ class RedirectController extends Controller
         if ($role  == 'admin') {
             return redirect(route('admin.home'));
         } elseif ($role  == 'user') {
-            return 'user home';
+            return redirect(route('home'));
         }
     }
 }

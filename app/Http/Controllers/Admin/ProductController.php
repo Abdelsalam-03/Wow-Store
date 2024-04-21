@@ -35,7 +35,7 @@ class ProductController extends Controller
             'name' => ['required'],
             'price' => ['required', 'numeric'],
             'category' => ['required', 'numeric'],
-            'quantity' => ['required', 'numeric'],
+            'stock' => ['required', 'numeric'],
             'photo' => ['required'],
             'description' => ['required'],
         ]);
@@ -51,7 +51,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'category_id' => $request->category,
-            'quantity' => $request->quantity,
+            'stock' => $request->stock,
             'photo' => $name,
             'description' => $request->description,
         ]);
