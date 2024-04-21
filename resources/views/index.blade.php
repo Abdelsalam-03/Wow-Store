@@ -31,12 +31,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
-            <div class="p-4 bg-white rounded shadow">
+            <div class="p-4 bg-white rounded shadow d-flex flex-column gap-3">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
                     @foreach ($products as $product)
                         <x-product :product="$product" />
                     @endforeach
                 </div>
+                @if ($products->hasPages())
+                    <hr>
+                    <div>
+                        {{ $products->appends(request()->query())->links('pagination::bootstrap-5') }}
+                    </div>
+                @endif
             </div>
             
         </div>
