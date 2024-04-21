@@ -56,9 +56,9 @@ class ProductController extends Controller
             'description' => $request->description,
         ]);
         if (isset($request->return)) {
-            return redirect(route('products.create'));
+            return redirect(route('admin.products.create'));
         } else {
-            return redirect(route('products.index'));
+            return redirect(route('admin.products.index'));
         }
     }
 
@@ -95,7 +95,7 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->quantity = $request->quantity;
         $product->save();
-        return redirect(route('products.index'));
+        return redirect(route('admin.products.index'));
     }
 
     /**
@@ -104,6 +104,6 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         Product::destroy($id);
-        return redirect(route('products.index'));
+        return redirect(route('admin.products.index'));
     }
 }

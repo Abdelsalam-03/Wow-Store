@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="{{ route('categories.update', ['category' => $category->id]) }}" method="POST" class="row-md d-flex-md">
+        <form action="{{ route('admin.categories.update', ['category' => $category->id]) }}" method="POST" class="row-md d-flex-md">
             @csrf
             @method('PUT')
             <div class="mb-3 col-md-7">

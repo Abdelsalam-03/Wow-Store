@@ -24,7 +24,7 @@
         
     </style>
     <img src="{{$product->photo ? asset('storage/' . $product->photo) : ''}}" alt="image">
-    <form action="{{route('products.update', ['product' => $product->id])}}" method="POST">
+    <form action="{{route('admin.products.update', ['product' => $product->id])}}" method="POST">
         @method('PUT')
         @csrf
         <input type="text" name="name" value="{{$product->name}}">

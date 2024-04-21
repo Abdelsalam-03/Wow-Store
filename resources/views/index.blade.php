@@ -5,6 +5,21 @@
             <input type="submit" value="Search">
         </form>
     </x-slot>
+<style>    
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+    <div class="bg-white">
+        <div class="">
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 overflow-auto d-flex gap-2 justify-content-center hide-scrollbar">
+                @foreach ($categories as $category)
+                <a href="{{ '/' . $category->id }}" style="white-space: nowrap;" class="btn btn-sm btn-secondary">{{ $category->name }}</a>
+                @endforeach
+            </div>
+        </div>
+    </div>
     <div style="display: none">
         <button onclick="destroyCart()">Empty Cart</button>
         <hr>

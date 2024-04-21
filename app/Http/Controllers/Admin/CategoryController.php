@@ -36,7 +36,7 @@ class CategoryController extends Controller
         if (isset($request->return)) {
             return view('admin.categories.create', ['checked' => true]);
         }
-        return redirect(route('categories.index'));
+        return redirect(route('admin.categories.index'));
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->save();
-        return redirect(route('categories.show', ['category' => $id]));
+        return redirect(route('admin.categories.show', ['category' => $id]));
     }
 
     /**
@@ -75,6 +75,6 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Category::destroy($id);
-        return redirect(route('categories.index'));
+        return redirect(route('admin.categories.index'));
     }
 }

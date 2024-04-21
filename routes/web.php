@@ -33,10 +33,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', admin::class])->group(function (){
-    Route::prefix('admin/')->group(function(){
-        Route::get('/', AdminHomeController::class)->name('admin.home');
+    Route::prefix('admin/')->name('admin.')->group(function(){
+        Route::get('/', AdminHomeController::class)->name('home');
         Route::resource('/categories', AdminCategoryController::class);
-        Route::resource('products', AdminProductController::class);
+        Route::resource('/products', AdminProductController::class);
     });
 });
 

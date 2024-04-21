@@ -7,14 +7,17 @@
     <title>Categories</title>
 </head>
 <body>
+    
+    <a href="{{route('admin.home')}}">Home</a>
+    <hr>
     Categories 
-    <a href="{{route('categories.create')}}">Add Category</a>
+    <a href="{{route('admin.categories.create')}}">Add Category</a>
     <hr>
     @foreach ($categories as $category)
         <h4>Name: {{ $category->name }}</h4>
-        <a href="{{route('categories.show', ["category" => $category->id])}}">Show</a>
-        <a href="{{route('categories.edit', ["category" => $category->id])}}">Edit</a>
-        <form action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="POST">
+        <a href="{{route('admin.categories.show', ["category" => $category->id])}}">Show</a>
+        <a href="{{route('admin.categories.edit', ["category" => $category->id])}}">Edit</a>
+        <form action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}" method="POST">
             @csrf
             @method('DELETE')
             <input type="submit" value="Delete">

@@ -24,7 +24,7 @@
         
     </style>
 
-    <form action="{{route('products.store')}}" method="POST">
+    <form action="{{route('admin.products.store')}}" method="POST">
         @csrf
         <input type="text" name="name" value="{{old('name')}}">
         @error('name')

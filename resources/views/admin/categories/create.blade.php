@@ -7,7 +7,7 @@
     <title>Create Category Page</title>
 </head>
 <body>
-    <form action="{{route('categories.store')}}" method="POST">
+    <form action="{{route('admin.categories.store')}}" method="POST">
         @csrf
         <input type="text" name="name" value="{{old('name')}}">
         @error('name')
