@@ -1,27 +1,29 @@
 <x-app-layout>
     <x-slot name="header">
         <form action="" method="GET">
-            <input type="text" name="query" id="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="removeLiveSearchContent()">
-            <input type="submit" value="Search">
+            <div class="input-group">
+                <input type="text" name="query" data-bs-toggle="modal" class="form-control" data-bs-target="#staticBackdrop" onclick="prepareForSearch()" value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}">
+                <input type="submit" value="Search" class="btn btn-primary">
+            </div>
         </form>
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen">
-              <div class="modal-content">
-                <div class="modal-header">
-                  {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> --}}
-                  <input type="text" name="query" id="live-search-input" class="form-control">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content">
+                <div class="modal-header gap-2">
+                    <form action="" method="GET" class="w-100">
+                        <div class="input-group">
+                            <input type="text" name="query" id="live-search-input" class="form-control btn-primary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            <input type="submit" class="btn btn-primary" id="inputGroup-sizing-sm" value="Search">
+                        </div>
+                    </form>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <div id="live-search-results"></div>
+                    <div id="live-search-results"></div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
     </x-slot>
 <style>    
     .hide-scrollbar::-webkit-scrollbar {

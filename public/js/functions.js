@@ -150,12 +150,33 @@ function liveSearch(query) {
             resultsPanel.appendChild(product);
             resultsPanel.appendChild(document.createElement('hr'));
         });
+        if (data['to'] < data['total']) {
+            more_link = document.createElement('a');
+            more_link.setAttribute('href', '?query=' + query);
+            more_link.innerHTML = "More...";
+            resultsPanel.appendChild(more_link);
+        }
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }
 
+function prepareForSearch() {
+    removeLiveSearchContent();
+    focusOnSearchField();
+}
+
 function removeLiveSearchContent() {
     document.getElementById('live-search-results').innerHTML = '';
+}
+
+function focusOnSearchField() {
+    var myModal = document.getElementById('staticBackdrop');
+    
+    myModal.addEventListener('shown.bs.modal', function () {
+        var myInput = document.getElementById('live-search-input');
+        myInput.focus();
+        myInput.value = '';
+    });
 }
