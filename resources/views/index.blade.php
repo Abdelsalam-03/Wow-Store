@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout class="form-control">
     <x-slot name="header">
         <form action="" method="GET">
             <div class="input-group">
@@ -25,12 +25,54 @@
             </div>
         </div>
     </x-slot>
-<style>    
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-</style>
-
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            
+            <div class="p-4 bg-white rounded shadow d-flex flex-column gap-3">
+                <form action="" class="d-flex flex-column justify-content-center gap-4">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center align-items-center">
+                        <div class="col d-flex justify-content-center align-items-center gap-2">
+                            <label for="order-by" style="white-space: nowrap">Order By</label>
+                            <select class="form-select" id="order-by" aria-label="Default select example" name="order-by">
+                                <option value="0" selected>None</option>
+                                <option value="name">Name</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center gap-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="order" id="order-asc" checked value="asc">
+                                <label class="form-check-label" for="order-asc">
+                                  Ascending
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="order" id="order-desc" @checked(isset($_GET['order']) && $_GET['order'] == "desc") value="desc">
+                                <label class="form-check-label" for="order-desc">
+                                  Descending
+                                </label>
+                              </div>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center gap-2">
+                            <div class="d-flex flex-column gap-1 justify-content-center text-center">
+                                <label for="min">Min Price</label>
+                                <input type="number" name="min-price" id="min" class="form-control" value="{{ isset($_REQUEST['min-price']) ? $_REQUEST['min-price'] : '' }}">
+                            </div>
+                            <div class="d-flex flex-column gap-1 justify-content-center text-center">
+                                <label for="max">Max Price</label>
+                                <input type="number" name="max-price" id="max" class="form-control" value="{{ isset($_REQUEST['max-price']) ? $_REQUEST['max-price'] : '' }}">
+                            </div>
+                        </div>
+                    </div>
+                    @isset($_REQUEST['query'])
+                        <input type="hidden" name="query" value="{{ $_REQUEST['query'] }}">
+                    @endisset
+                    <input type="submit" value="Filter" class="btn btn-outline-primary align-self-center">
+                </form>
+            </div>
+            
+        </div>
+    </div>
     <div class="bg-white">
         <div class="">
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 overflow-auto d-flex gap-2 justify-content-center hide-scrollbar">

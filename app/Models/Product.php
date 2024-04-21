@@ -26,16 +26,33 @@ class Product extends Model
     }
 
     public static function filter(Request $request){
-        $products = null;
+        $products = self::select();
         if ($request->query('query')) {
             $query = $request->query('query');
-            $products = self::select('*')
-                            ->where('name', 'LIKE', '%' . $query . '%')
-                            ->orWhere('description', 'LIKE', '%' . $query . '%')
-                            ->orWhere('price', '=', $query);
-        } else {
-            $products = self::select();
+            $products = $products->where('name', 'LIKE', '%' . $query . '%')
+                            ->orWhere('description', 'LIKE', '%' . $query . '%');
         }
+        if ($request->query('min-price')) {
+            $query = $request->query('min-price');
+            $products = $products->where('price', '>', +$query);
+        }
+        if ($request->query('max-price')) {
+            $query = $request->query('max-price');
+            $products = $products->where('price', '<', +$query);
+        }
+
+        if ($request->query('order-by')) {
+            $orderBy = $request->query('order-by');
+            if ($orderBy != 'name' && $orderBy != 'price') {
+                $orderBy = 'price';
+            }
+            $order = $request->query('order-by');
+            if ($order != 'asc' && $order != 'desc') {
+                $order = 'asc';
+            }
+            $products = $products->orderBy($orderBy, $order);
+        }
+        
         return $products;
     }
 
