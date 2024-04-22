@@ -12,7 +12,7 @@ class HomeController extends Controller
     function __invoke(Request $request)
     {
         if (Auth::check()) {
-            return view('index', ['products' => Product::filter($request)->paginate(3), 'categories' => Category::all()]);
+            return view('index', ['products' => Product::filter($request)->paginate(10), 'categories' => Category::all()]);
         } else {
             return view('guest');
         }

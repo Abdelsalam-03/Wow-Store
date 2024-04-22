@@ -34,11 +34,15 @@ class Product extends Model
         }
         if ($request->query('min-price')) {
             $query = $request->query('min-price');
-            $products = $products->where('price', '>', +$query);
+            $products = $products->where('price', '>', $query);
         }
         if ($request->query('max-price')) {
             $query = $request->query('max-price');
-            $products = $products->where('price', '<', +$query);
+            $products = $products->where('price', '<', $query);
+        }
+        if ($request->query('category')) {
+            $query = $request->query('category');
+            $products = $products->where('category_id', '=', $query);
         }
 
         if ($request->query('order-by')) {

@@ -180,3 +180,15 @@ function focusOnSearchField() {
         myInput.value = '';
     });
 }
+
+function addTagToPaginationLinks(containerId, tag){
+    container = document.getElementById(containerId);
+    if (container) {
+        links = container.querySelectorAll('a');
+        if (links) {
+            links.forEach(element => {
+                element.href = element.href + "#" + tag;
+            });
+        }
+    }
+}
