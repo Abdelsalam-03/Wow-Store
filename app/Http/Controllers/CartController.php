@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
 
+    function index(){
+        return view('cart', ['content' => Auth::user()->cartContent]);
+    }
+
     function all(){
         return response()->json(Auth::user()->cartContent);
     }

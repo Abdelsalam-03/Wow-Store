@@ -10,6 +10,9 @@ function cart() {
     })
     .then(response => response.json())
     .then(data => {
+        if (data.length > 0) {
+            document.getElementById('cart-indicator').classList.remove('d-none');
+        }
         fillCart(data);
     })
     .catch(error => {
@@ -29,6 +32,7 @@ function addToCart(id) {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        document.getElementById('cart-indicator').classList.remove('d-none');
         fillSpecificCart(id);
     })
     .catch(error => {
@@ -46,6 +50,7 @@ function destroyCart() {
         })
         .then(response => response.json())
         .then(data => {
+            document.getElementById('cart-indicator').classList.add('d-none');
             console.log(data);
             document.querySelector('.cart').innerHTML = '';
         })
