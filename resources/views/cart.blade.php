@@ -1,7 +1,7 @@
 <x-app-layout>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @php
                 $totalPrice = 0;   
                 $totalItems = 0;
@@ -17,7 +17,7 @@
             </div>
             <div class="p-4 sm:p-8 @if (! $totalProducts) {{'d-none'}} @endif">
                 <div class="row g-4">
-                    <div class="col col-12 col-md-8">
+                    <div class="col col-12 col-md-9">
                         <div class="p-4 bg-white rounded shadow d-flex flex-column">
                             <div class="head d-flex flex-row justify-between align-items-center">
                                 <h2 class="m-0">Shopping Cart</h2>
@@ -72,9 +72,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-12 col-md-4">
-                        <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-warning">
-                            Categories
+                    <div class="col col-12 col-md-3">
+                        <div class="bg-white rounded p-4 shadow d-flex flex-column gap-4 justify-content-center">
+                            <a href="{{ route('checkout') }}" class="btn btn-primary">Checkout</a>
+                            <a href="{{ route('home') . '#products' }}" class="btn btn-outline-dark">Shop More</a>
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,13 @@ class CartController extends Controller
         $product = Product::find($data['productId']);
         $quantity = $request->quantity ? intval($request->quantity) : 1;
         if ($product) {
+            if (+$product->stock < $quantity) {
+                if (isset($data['return-to-home'])) {
+                    return redirect(route('home'));
+                } else {
+                    return response()->json(['message' => 'Quantity More Than the Stock']);
+                }
+            }
             $productOnCart = Cart::where('user_id', '=', Auth::id())
             ->where('product_id', '=', $product->id)
             ->get()
@@ -64,6 +71,9 @@ class CartController extends Controller
         $product = Product::find($request->product);
         $quantity = $request->quantity;
         if ($product) {
+            if ($product->stock < $quantity) {
+                return redirect(route('cart'));
+            }
             $productOnCart = Cart::where('user_id', '=', Auth::id())
             ->where('product_id', '=', $product->id)
             ->get()

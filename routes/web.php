@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/checkout', [CheckoutController::class, 'check'])->name('checkout');
 });
 
 require __DIR__.'/auth.php';
