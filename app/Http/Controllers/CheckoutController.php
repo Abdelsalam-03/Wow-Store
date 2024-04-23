@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,19 @@ class CheckoutController extends Controller
         ->where('carts.user_id', '=', Auth::id())
         ->get();
         foreach ($items as $product) {
-            
+            if ($product->stock < $product->quantity) {
+                return redirect()->back()->with('fail', 'There Is Product Out Of Stock.');
+            }
         }
+        
+        $order = Order::create([
+            'user_id' => 2,
+            'total' => 5000,
+            'date' => now(),
+            'status' => 'pending',
+            'address' => 'Cairo',
+        ]);
+
     }
 
 }
