@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="links">
+        <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
+            <x-cart-button />
+        </div>
+    </x-slot>
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
@@ -15,7 +20,7 @@
                         @csrf
                         <input class="form-control text-center me-3 rounded" name="quantity" id="inputQuantity" value="1" style="max-width: 5rem" />
                         <input type="hidden" name="productId" value="{{ $product->id }}">
-                        <input type="hidden" name="toHome" value="1">
+                        <input type="hidden" name="return-to-home" value="1">
                         <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
@@ -25,4 +30,7 @@
             </div>
         </div>
     </section>
+    <script>
+        cart();
+    </script>
 </x-app-layout>

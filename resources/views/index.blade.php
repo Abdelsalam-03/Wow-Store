@@ -1,4 +1,9 @@
 <x-app-layout class="form-control">
+    <x-slot name="links">
+        <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
+            <x-cart-button />
+        </div>
+    </x-slot>
     <x-slot name="header">
         <form action="/#products" method="GET">
             <div class="input-group">
@@ -92,18 +97,6 @@
             </div>
         </div>
     </div>
-    <div class="">
-        <button onclick="destroyCart()">Empty Cart</button>
-        <hr>
-        <div class="cart" >
-        </div>
-        <hr>
-    </div>
-    <x-slot name="links">
-        <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
-            <x-cart-button />
-        </div>
-    </x-slot-name>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             

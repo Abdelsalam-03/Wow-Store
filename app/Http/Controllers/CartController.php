@@ -35,8 +35,8 @@ class CartController extends Controller
             if ($productOnCart) {
                 $productOnCart->quantity = $productOnCart->quantity + $quantity; 
                 $productOnCart->save();
-                if (isset($data['toHome'])) {
-                    return redirect('/products');
+                if (isset($data['return-to-home'])) {
+                    return redirect(route('home'));
                 } else {
                     return response()->json([DB::table('carts')
                     ->join('products', 'products.id', '=', 'carts.product_id')
@@ -46,8 +46,8 @@ class CartController extends Controller
                 }
             } else {
                 Cart::create(['product_id' => $product->id, 'user_id' => Auth::id(), 'quantity' => $quantity]);
-                if (isset($data['toHome'])) {
-                    return redirect('/products');
+                if (isset($data['return-to-home'])) {
+                    return redirect(route('home'));
                 } else {
                     return response()->json([Auth::user()->cartContent]);
                 }
