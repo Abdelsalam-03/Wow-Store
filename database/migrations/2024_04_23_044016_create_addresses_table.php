@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('building');
             $table->text('street');
-            $table->text('distnict');
+            $table->text('district');
             $table->text('phone');
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
         });

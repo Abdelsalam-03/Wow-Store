@@ -11,9 +11,10 @@ class CheckoutController extends Controller
     function check(){
         $items = DB::table('carts')
         ->join('products', 'products.id', '=', 'carts.product_id')
-        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.photo')
+        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.stock')
         ->where('carts.user_id', '=', Auth::id())
         ->get();
-        return view('checkout');
+        $address = Auth::user()->address;
+        return view('checkout', ['items' => $items, 'address' => $address]);
     }
 }
