@@ -4,6 +4,7 @@ function viewAlert(type, message){
     alertBody = document.createElement('div');
     alertBody.classList.add('alert', 'alert-' + type, 'alert-dismissible', 'fade', 'show', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x');
     alertBody.setAttribute('role', 'alert');
+    alertBody.style.cssText = "white-space: nowrap";
     content  = document.createTextNode(message);
     closeButton = document.createElement('button');
     closeButton.classList.add('btn-close', 'd-none');
@@ -204,7 +205,7 @@ function createUserAddress() {
     buildingField = form.querySelector("input[name='building']");
     phoneField = form.querySelector("input[name='phone']");
     if (phoneField.value.length != 11) {
-        console.log('phone Field is too short');
+        viewAlert('danger', 'phone Field is too short');
     } else {
         const data = { 
             district: districtField.value, 
