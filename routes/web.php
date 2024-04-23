@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Middleware\admin;
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'check'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/address/create', [AddressController::class, 'create']);
+    Route::get('/orders', [OrderController::class, 'index'])->name('user.orders');
 });
 
 require __DIR__.'/auth.php';
