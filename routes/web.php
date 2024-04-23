@@ -28,8 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/cart/all', [CartController::class, 'all']);
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::delete('/cart/destroy', [CartController::class, 'destroy']);
-    Route::delete('/cart/{id}', [CartController::class, 'remove']);
+    Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
 });
 
 require __DIR__.'/auth.php';

@@ -197,3 +197,12 @@ function addTagToPaginationLinks(containerId, tag){
         }
     }
 }
+
+function addEventToCartQuantity() {
+    cartQuantity = document.querySelectorAll('.cart-quantity');
+    cartQuantity.forEach(element => {
+        element.querySelector('.quantity').addEventListener('blur', function(){
+            element.submit();
+        })
+    })
+}

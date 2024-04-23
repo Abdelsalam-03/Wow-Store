@@ -12,7 +12,11 @@ class CartController extends Controller
 {
 
     function index(){
-        return view('cart', ['content' => Auth::user()->cartContent]);
+        return view('cart', ['content' => DB::table('carts')
+        ->join('products', 'products.id', '=', 'carts.product_id')
+        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.photo')
+        ->where('carts.user_id', '=', Auth::id())
+        ->get()]);
     }
 
     function all(){
@@ -53,16 +57,39 @@ class CartController extends Controller
         }
     }
 
+    function update(Request $request){
+        $request->validate([
+            'quantity' => 'required|numeric',
+        ]);
+        $product = Product::find($request->product);
+        $quantity = $request->quantity;
+        if ($product) {
+            $productOnCart = Cart::where('user_id', '=', Auth::id())
+            ->where('product_id', '=', $product->id)
+            ->get()
+            ->first();
+            if ($productOnCart) {
+                if (+$quantity > 1) {
+                    $productOnCart->quantity = $quantity; 
+                    $productOnCart->save();
+                } else {
+                    $productOnCart->delete();
+                }
+            }
+        }
+        return redirect(route('cart'));
+    }
+
     function remove(string $id){
         Cart::where('product_id', '=', $id)
             ->where('user_id', '=', Auth::id())
             ->delete();
-        return response()->json(['message' => 'product Removed Successfully']);
+        return redirect(route('cart'));
     }
 
     function destroy(){
         Cart::where('user_id', '=', Auth::id())->delete();
-        return response()->json(['message' => 'Cart Destroyed successfully']);
+        return redirect(route('cart'));
     }
 
 }

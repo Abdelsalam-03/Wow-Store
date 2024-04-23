@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="d-none">
+    <div class="">
         <button onclick="destroyCart()">Empty Cart</button>
         <hr>
         <div class="cart" >
