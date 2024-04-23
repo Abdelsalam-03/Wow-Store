@@ -37,8 +37,11 @@
                                         <img src="{{ asset('storage/' . $product->photo) }}" class="rounded" alt="Product Image">
                                     </a>
                                 </div>
-                                <div class="content col-6 d-flex flex-column justify-content-between gap-2">
+                                <div class="content col-6 d-flex flex-column justify-content-between">
                                     <h5>{{ $product->name }}</h5>
+                                    @if (+$product->stock <= 5)
+                                        <p class="text-danger m-0 text-sm">Stock - {{ $product->stock }}</p>
+                                    @endif
                                     <div class="actions d-flex gap-2 align-items-center text-sm">
                                         <label for="quantity">Qty</label>
                                         <form action="{{ route('cart.update', ['product' => $product->product_id]) }}" class="w-25 cart-quantity" method="POST">

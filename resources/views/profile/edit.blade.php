@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="links">
+        <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
+            <x-cart-button />
+        </div>
+    </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -33,6 +38,7 @@
         </div>
     </div>
     <script>
+        cart();
         disableAddressForms();
     </script>
 </x-app-layout>

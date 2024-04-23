@@ -14,7 +14,7 @@ class CartController extends Controller
     function index(){
         return view('cart', ['content' => DB::table('carts')
         ->join('products', 'products.id', '=', 'carts.product_id')
-        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.photo')
+        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.photo', 'products.stock')
         ->where('carts.user_id', '=', Auth::id())
         ->get()]);
     }
@@ -40,7 +40,14 @@ class CartController extends Controller
             ->get()
             ->first();
             if ($productOnCart) {
-                $productOnCart->quantity = $productOnCart->quantity + $quantity; 
+                if ($quantity > $product->stock) {
+                    if (isset($data['return-to-home'])) {
+                        return redirect(route('home'));
+                    } else {
+                        return response()->json(['message' => 'Quantity More Than the Stock'], 400);
+                    }
+                }
+                $productOnCart->quantity = $quantity;
                 $productOnCart->save();
                 if (isset($data['return-to-home'])) {
                     return redirect(route('home'));
@@ -90,11 +97,15 @@ class CartController extends Controller
         return redirect(route('cart'));
     }
 
-    function remove(string $id){
+    function remove(string $id, Request $request){
         Cart::where('product_id', '=', $id)
             ->where('user_id', '=', Auth::id())
             ->delete();
-        return redirect(route('cart'));
+        if ($request->response) {
+            return response()->json(['message' => 'Product Removed Successfully']);
+        } else {
+            return redirect(route('cart'));
+        }
     }
 
     function destroy(){
