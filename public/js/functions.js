@@ -1,5 +1,22 @@
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+function viewAlert(type, message){
+    alertBody = document.createElement('div');
+    alertBody.classList.add('alert', 'alert-' + type, 'alert-dismissible', 'fade', 'show', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x');
+    alertBody.setAttribute('role', 'alert');
+    content  = document.createTextNode(message);
+    closeButton = document.createElement('button');
+    closeButton.classList.add('btn-close', 'd-none');
+    closeButton.setAttribute('type', 'button');
+    closeButton.setAttribute('data-bs-dismiss', 'alert');
+    closeButton.setAttribute('aria-label', 'Close');
+    alertBody.appendChild(content);
+    alertBody.appendChild(closeButton);
+    document.body.appendChild(alertBody);
+    setTimeout(function (){
+        closeButton.click();
+    }, 2000)
+}
 
 function cart() {
     fetch('/cart/all', {
@@ -167,4 +184,58 @@ function addEventToCartQuantity() {
             element.submit();
         })
     })
+}
+
+function disableAddressForms(){
+    forms = document.querySelectorAll('.address-form');
+
+    forms.forEach(element => {
+        element.addEventListener('submit', function(e){
+            e.preventDefault();
+        });
+    })
+
+}
+
+function createUserAddress() {
+    form = document.querySelector('.address-form');
+    districtField = form.querySelector("input[name='district']");
+    streetField = form.querySelector("input[name='street']");
+    buildingField = form.querySelector("input[name='building']");
+    phoneField = form.querySelector("input[name='phone']");
+    if (phoneField.value.length != 11) {
+        console.log('phone Field is too short');
+    } else {
+        const data = { 
+            district: districtField.value, 
+            street: streetField.value, 
+            building: buildingField.value, 
+            phone: phoneField.value, 
+        };
+        fetch('/address/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+    
+            if (response.status >= 400 && response.status < 600) {
+              return response.json().then(errorData => {
+                throw new Error(errorData.message);
+              });
+              
+            }
+            
+            return response.json();
+          })
+          .then(data => {
+            viewAlert('success', data.message);
+          })
+        .catch(error => {
+            viewAlert('danger', error);
+        });
+    }
 }

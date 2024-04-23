@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('district');
             $table->text('phone');
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

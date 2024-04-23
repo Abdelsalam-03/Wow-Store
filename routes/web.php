@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/checkout', [CheckoutController::class, 'check'])->name('checkout');
+    Route::post('/address/create', [AddressController::class, 'create']);
 });
 
 require __DIR__.'/auth.php';

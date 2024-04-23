@@ -14,6 +14,9 @@ class CheckoutController extends Controller
         ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.stock')
         ->where('carts.user_id', '=', Auth::id())
         ->get();
+        if (! count($items)) {
+            return redirect(route('home'));
+        }
         $address = Auth::user()->address;
         return view('checkout', ['items' => $items, 'address' => $address]);
     }
