@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Order_product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,19 +34,36 @@ class CheckoutController extends Controller
         ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.stock')
         ->where('carts.user_id', '=', Auth::id())
         ->get();
+        $totalPrice = 0;
         foreach ($items as $product) {
             if ($product->stock < $product->quantity) {
                 return redirect()->back()->with('fail', 'There Is Product Out Of Stock.');
             }
+            $totalPrice+= ($product->price * $product->quantity);
         }
         
+        $addressAsLine = $address->district . ' - ' . $address->street . ' - ' . $address->building . '. contact - ' . $address->phone;
+
         $order = Order::create([
-            'user_id' => 2,
-            'total' => 5000,
-            'date' => now(),
+            'user_id' => Auth::id(),
+            'total' => $totalPrice,
+            'date' => time(),
             'status' => 'pending',
-            'address' => 'Cairo',
+            'address' => $addressAsLine,
         ]);
+
+        foreach ($items as $product) {
+            Order_product::create([
+                'order_id' => $order->id,
+                'product_id' => $product->product_id,
+                'quantity' => $product->quantity,
+                'price' => $product->price,
+            ]);
+        }
+
+        Cart::where('user_id', '=', Auth::id())->delete();
+
+        return redirect(route('home'))->with('success', 'Order Created Successfully');
 
     }
 
