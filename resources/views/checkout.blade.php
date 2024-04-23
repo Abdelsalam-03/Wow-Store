@@ -1,4 +1,14 @@
 <x-app-layout>
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="p-4 sm:p-8 d-flex flex-column gap-4">
             <div class="row g-4 justify-content-center">
@@ -24,7 +34,7 @@
                                     <label for="phone" class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="phone" id="phone" required value="{{ $address->phone }}">
                                 </div>
-                                <button class="btn btn-primary align-self-center" type="submit">Change</button>
+                                <button class="btn btn-secondary align-self-center" type="submit">Change</button>
                             </form>
                         @else
                             <form action="" class="d-flex flex-column address-form" onsubmit="createUserAddress()">
@@ -44,7 +54,7 @@
                                     <label for="phone" class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="phone" id="phone" required>
                                 </div>
-                                <button class="btn btn-primary align-self-center" type="submit">Save</button>
+                                <button class="btn btn-secondary align-self-center" type="submit">Save</button>
                             </form>
                         @endif
                     </div>
@@ -109,8 +119,11 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-8 col-sm-5 col-md-3 col-lg-2">
-                    <div class="d-flex justify-content-center">
+                    <form action="{{ route('checkout') }}" method="POST" class="d-flex justify-content-center">
+                        @csrf
                         <button class="btn btn-lg btn-primary shadow">Confirm Order</button>
+                    </form>
+                    <div >
                     </div>
                 </div>
             </div>

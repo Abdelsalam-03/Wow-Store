@@ -1,4 +1,14 @@
 <x-app-layout class="form-control">
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
     <x-slot name="links">
         <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
             <x-cart-button />

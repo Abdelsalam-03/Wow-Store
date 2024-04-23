@@ -1,16 +1,26 @@
 <x-app-layout>
-
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @php
             $totalPrice = 0;   
             $totalItems = 0;
             $totalProducts = count($content);
         @endphp
-        <div class="d-flex justify-content-center px-4 @if ($totalProducts) {{'d-none'}} @endif">
+        <div class="d-flex justify-content-center px-4 py-4 @if ($totalProducts) {{'d-none'}} @endif">
             <div class="card shadow" style="max-width: 600px">
                 <img src="{{ asset('images/empty-cart.svg') }}" class="card-img" alt="Empty Cart Image">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Your Cart is empty.</h5>
+                    <h5 class="card-title">Empty Cart.</h5>
+                    <a href="{{ route('home') . '#products' }}" class="btn btn-lg btn-outline-dark">Go To Shop !</a>
                 </div>
             </div>
         </div>

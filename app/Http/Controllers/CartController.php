@@ -30,9 +30,9 @@ class CartController extends Controller
         if ($product) {
             if (+$product->stock < $quantity) {
                 if (isset($data['return-to-home'])) {
-                    return redirect(route('home'));
+                    return redirect()->back()->with('fail', 'Quantity More Than the Stock');
                 } else {
-                    return response()->json(['message' => 'Quantity More Than the Stock']);
+                    return response()->json(['message' => 'Quantity More Than the Stock'], 400);
                 }
             }
             $productOnCart = Cart::where('user_id', '=', Auth::id())
@@ -42,7 +42,7 @@ class CartController extends Controller
             if ($productOnCart) {
                 if ($quantity > $product->stock) {
                     if (isset($data['return-to-home'])) {
-                        return redirect(route('home'));
+                        return redirect()->back()->with('fail', 'Quantity More Than the Stock');
                     } else {
                         return response()->json(['message' => 'Quantity More Than the Stock'], 400);
                     }
@@ -50,20 +50,22 @@ class CartController extends Controller
                 $productOnCart->quantity = $quantity;
                 $productOnCart->save();
                 if (isset($data['return-to-home'])) {
-                    return redirect(route('home'));
+                    return redirect(route('home'))->with('success', 'Quantity Updated Successfully');
                 } else {
-                    return response()->json([DB::table('carts')
-                    ->join('products', 'products.id', '=', 'carts.product_id')
-                    ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as product_name', 'products.price', 'products.photo')
-                    ->where('carts.user_id', '=', Auth::id())
-                    ->get()]);
+                    // return response()->json([DB::table('carts')
+                    // ->join('products', 'products.id', '=', 'carts.product_id')
+                    // ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as product_name', 'products.price', 'products.photo')
+                    // ->where('carts.user_id', '=', Auth::id())
+                    // ->get()]);
+                    return response()->json(['message' => 'Quantity Updated Successfully']);
                 }
             } else {
                 Cart::create(['product_id' => $product->id, 'user_id' => Auth::id(), 'quantity' => $quantity]);
                 if (isset($data['return-to-home'])) {
-                    return redirect(route('home'));
+                    return redirect(route('home'))->with('success', 'Added Successfully');
                 } else {
-                    return response()->json([Auth::user()->cartContent]);
+                    return response()->json(['message' => 'Added Successfully']);
+                    // return response()->json([Auth::user()->cartContent]);
                 }
             }
         } else {

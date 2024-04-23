@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/checkout', [CheckoutController::class, 'check'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/address/create', [AddressController::class, 'create']);
 });
 

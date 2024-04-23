@@ -20,4 +20,20 @@ class CheckoutController extends Controller
         $address = Auth::user()->address;
         return view('checkout', ['items' => $items, 'address' => $address]);
     }
+
+    function checkout(){
+        $address = Auth::user()->address;
+        if (! $address) {
+            return redirect()->back()->with('fail', 'Please Fill The Address Fields');
+        }
+        $items = DB::table('carts')
+        ->join('products', 'products.id', '=', 'carts.product_id')
+        ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.stock')
+        ->where('carts.user_id', '=', Auth::id())
+        ->get();
+        foreach ($items as $product) {
+            
+        }
+    }
+
 }

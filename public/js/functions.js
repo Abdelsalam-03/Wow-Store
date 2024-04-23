@@ -2,7 +2,7 @@ var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('
 
 function viewAlert(type, message){
     alertBody = document.createElement('div');
-    alertBody.classList.add('alert', 'alert-' + type, 'alert-dismissible', 'fade', 'show', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x');
+    alertBody.classList.add('alert', 'alert-' + type, 'alert-dismissible', 'fade', 'show', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x', 'my-5');
     alertBody.setAttribute('role', 'alert');
     alertBody.style.cssText = "white-space: nowrap";
     content  = document.createTextNode(message);
