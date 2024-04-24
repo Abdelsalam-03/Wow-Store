@@ -5,12 +5,13 @@ use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderController as UserOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Middleware\admin;
@@ -37,8 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'check'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/address/create', [AddressController::class, 'create']);
-    Route::get('/orders', [OrderController::class, 'index'])->name('user.orders');
-    Route::delete('/orders/{order}', [OrderController::class, 'delete'])->name('user.orders.delete');
+    Route::get('/orders', [UserOrderController::class, 'index'])->name('user.orders');
+    Route::delete('/orders/{order}', [UserOrderController::class, 'delete'])->name('user.orders.delete');
 });
 
 require __DIR__.'/auth.php';
@@ -48,6 +49,8 @@ Route::middleware(['auth', admin::class])->group(function (){
         Route::get('/', AdminHomeController::class)->name('home');
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/products', AdminProductController::class);
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders');
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     });
 });
 

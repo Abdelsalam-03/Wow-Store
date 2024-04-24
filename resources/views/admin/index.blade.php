@@ -16,6 +16,23 @@
             <div class="p-4 sm:p-8">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
                     <div class="col">
+                        @php
+                            $pendingTotal = count($pendingOrders);
+                        @endphp
+                        @if ($pendingTotal)
+                            <a href="{{ route('admin.orders') }}" class="text-decoration-none text-dark">
+                                <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-info">
+                                    Pending Orders - {{ $pendingTotal  }}
+                                </div>
+                            </a>    
+                        @else
+                            <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-info">
+                                Pending Orders
+                            </div>
+
+                        @endif
+                    </div>
+                    <div class="col">
                         <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-warning">
                             Categories
                         </div>
@@ -28,11 +45,6 @@
                     <div class="col">
                         <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-danger">
                             Sold
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-info">
-                            Testing
                         </div>
                     </div>
                 </div>
