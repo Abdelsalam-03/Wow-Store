@@ -4,65 +4,77 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $orders = Order::filter($request)
-                    ->paginate(10);
+                    ->paginate(5);
         return view('admin.orders.index', ['orders' => $orders]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $orderProducts = DB::table('order_products')
+        ->join('products', 'products.id', '=', 'order_products.product_id')
+        ->select('order_products.*', 'products.name', 'products.stock', 'products.price as actual_price')
+        ->where('order_products.order_id', '=', $order->id)
+        ->get();
+        return view('admin.orders.show', ['order' => $order, 'orderProducts' => $orderProducts]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function cancel(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->status = 'canceled';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order Canceled');
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function process(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->status = 'processing';
+        $order->save();
+
+        $products = $order->products;
+
+        foreach ($products as $product) {
+            $stock = Product::find($product->product_id);
+            $stock->stock = $stock->stock - $product->quantity;
+            $stock->save();
+        }
+
+        return redirect()->back()->with('success', 'Order Processed');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function ship(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->status = 'shipped';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order Shipped');
+
     }
+
+    public function arrive(string $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'delivered';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order Delivered');
+
+    }
+
 }

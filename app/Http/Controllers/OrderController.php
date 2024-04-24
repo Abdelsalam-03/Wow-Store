@@ -25,7 +25,7 @@ class OrderController extends Controller
     function delete(Request $request)
     {
         $order = Order::findOrFail($request->order);
-        if (Auth::id() == $order->user_id || Auth::user()->role == 'admin') {
+        if (Auth::id() == $order->user_id) {
             $order->status = 'canceled';
             $order->save();
             return redirect()->back()->with('success', 'Order Canceled');

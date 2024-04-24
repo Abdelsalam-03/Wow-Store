@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 class Order extends Model
@@ -29,5 +30,11 @@ class Order extends Model
 
         return $orders;
     }
+    
+    public function products(): HasMany
+    {
+        return $this->hasMany(Order_product::class);
+    }
+
 
 }

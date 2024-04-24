@@ -51,6 +51,10 @@ Route::middleware(['auth', admin::class])->group(function (){
         Route::resource('/products', AdminProductController::class);
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders');
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::delete('/orders/cancel/{order}', [AdminOrderController::class, 'cancel'])->name('orders.delete');
+        Route::patch('/orders/process/{order}', [AdminOrderController::class, 'process'])->name('orders.process');
+        Route::patch('/orders/ship/{order}', [AdminOrderController::class, 'ship'])->name('orders.ship');
+        Route::patch('/orders/arrive/{order}', [AdminOrderController::class, 'arrive'])->name('orders.arrive');
     });
 });
 
