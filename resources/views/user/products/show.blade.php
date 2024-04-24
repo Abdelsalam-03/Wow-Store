@@ -14,6 +14,16 @@
             <x-cart-button />
         </div>
     </x-slot>
+    <x-slot name="orders">
+        <x-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="ordersResponsive">
+        <x-responsive-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-responsive-nav-link>
+    </x-slot>
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">

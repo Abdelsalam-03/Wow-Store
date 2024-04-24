@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/address/create', [AddressController::class, 'create']);
     Route::get('/orders', [OrderController::class, 'index'])->name('user.orders');
+    Route::delete('/orders/{order}', [OrderController::class, 'delete'])->name('user.orders.delete');
 });
 
 require __DIR__.'/auth.php';

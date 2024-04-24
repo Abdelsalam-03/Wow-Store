@@ -15,9 +15,9 @@
                     <x-nav-link :href="route('redirect')" :active="request()->routeIs('redirect')">
                         Home
                     </x-nav-link>
-                    <x-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
-                        My Orders
-                    </x-nav-link>
+                    @isset($orders)
+                        {{ $orders }}
+                    @endisset
                 </div>
                 
                 
@@ -79,9 +79,9 @@
             <x-responsive-nav-link :href="route('redirect')" :active="request()->routeIs('redirect')">
                 Home
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
-                My Orders
-            </x-responsive-nav-link>
+            @isset($ordersResponsive)
+                {{ $ordersResponsive }}
+            @endisset
         </div>
 
         <!-- Responsive Settings Options -->

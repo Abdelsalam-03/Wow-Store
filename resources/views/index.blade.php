@@ -14,6 +14,16 @@
             <x-cart-button />
         </div>
     </x-slot>
+    <x-slot name="orders">
+        <x-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="ordersResponsive">
+        <x-responsive-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-responsive-nav-link>
+    </x-slot>
     <x-slot name="header">
         <form action="/#products" method="GET">
             <div class="input-group">

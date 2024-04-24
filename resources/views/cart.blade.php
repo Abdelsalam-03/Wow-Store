@@ -9,6 +9,16 @@
         viewAlert('danger', "{{ session('fail') }}")
     </script>
     @endif
+    <x-slot name="orders">
+        <x-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="ordersResponsive">
+        <x-responsive-nav-link :href="route('user.orders')" :active="request()->routeIs('user.orders')">
+            My Orders
+        </x-responsive-nav-link>
+    </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @php
             $totalPrice = 0;   
@@ -19,7 +29,6 @@
             <div class="card shadow" style="max-width: 600px">
                 <img src="{{ asset('images/empty-cart.svg') }}" class="card-img" alt="Empty Cart Image">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Empty Cart.</h5>
                     <a href="{{ route('home') . '#products' }}" class="btn btn-lg btn-outline-dark">Go To Shop !</a>
                 </div>
             </div>
