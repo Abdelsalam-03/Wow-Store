@@ -19,6 +19,11 @@
             Orders
         </x-responsive-nav-link>
     </x-slot>
+    <x-slot name="links">
+        <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
+            <x-invoice-button :status="$order->status" :order="$order" :orderProducts="$orderProducts" />
+        </div>
+    </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Orders
