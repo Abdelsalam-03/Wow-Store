@@ -9,7 +9,7 @@
                 Low Stock
             </span>
         @endif
-        <a href="{{ route('user.product', ['product' => $product->id]) }}">
+        <a href="{{ route('admin.products.show', ['product' => $product->id]) }}">
         <img class="card-img-top" src="{{$product->photo? asset('storage/' . $product->photo) : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'}}" alt="..." />
         </a>
         <div class="card-body p-4">
@@ -24,6 +24,11 @@
             <div class="d-flex justify-content-between">
                 <a href="{{ route('admin.products.show', ['product' => $product->id]) }}" class="btn btn-sm btn-outline-primary">Show</a>
                 <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
             </div>
         </div>
     </div>

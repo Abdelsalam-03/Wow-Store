@@ -1,29 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Products</title>
-</head>
-<body>
-    <a href="{{route('admin.home')}}">Home</a>
-    <hr>
-    Products 
-    <a href="{{route('admin.products.create')}}">Add Product</a>
-    <hr>
-    @foreach ($products as $product)
-        <h4>Name: {{ $product->name }}</h4>
-        <h4>Price: {{ $product->price }}</h4>
-        <h4>Category: {{ $product->category->name }}</h4>
-        <h4>Stock: {{ $product->stock }}</h4>
-        <a href="{{route('admin.products.show', ["product" => $product->id])}}">Show</a>
-        <a href="{{route('admin.products.edit', ["product" => $product->id])}}">Edit</a>
-        <form action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="Delete">
-        </form>
-    @endforeach
-</body>
-</html>
+<x-app-layout>
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
+    <x-slot name="orders">
+        <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+            Orders
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="ordersResponsive">
+        <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+            Orders
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="categories">
+        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="categoriesResponsive">
+        <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="products">
+        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            products
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="productsResponsive">
+        <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            Products
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight m-0">
+                Products
+            </h2>
+            <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Add Product</a>
+        </div>
+    </x-slot>
+    @if (count($products))
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg d-flex flex-column gap-3">
+                <form action="" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" required>
+                        <input type="submit" value="Search" class="btn btn-dark">
+                    </div>
+                </form>
+                <form action="" class="d-flex flex-column justify-content-center gap-4">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                        <div class="col">
+                            <div class=" d-flex justify-content-center align-items-center gap-2 rounded bg-light shadow-sm p-3 h-100">
+                                <label for="order-by" style="white-space: nowrap">Order By</label>
+                                <select class="form-select" id="order-by" aria-label="Default select example" name="order-by">
+                                    <option value="0" selected>None</option>
+                                    <option value="name">Name</option>
+                                    <option value="price">Price</option>
+                                    <option value="stock">Stock</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class=" d-flex justify-content-center align-items-center gap-2 rounded bg-light shadow-sm p-3 h-100">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="order" id="order-asc" checked value="asc">
+                                    <label class="form-check-label" for="order-asc">
+                                      Ascending
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="order" id="order-desc">
+                                    <label class="form-check-label" for="order-desc">
+                                      Descending
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class=" d-flex justify-content-center align-items-center gap-2 rounded bg-light shadow-sm p-3">
+                                <div class="d-flex flex-column gap-1 justify-content-center text-center">
+                                    <label for="min">Min Price</label>
+                                    <input type="number" name="min-price" id="min" class="form-control" value="{{ isset($_REQUEST['min-price']) ? $_REQUEST['min-price'] : '' }}">
+                                </div>
+                                <div class="d-flex flex-column gap-1 justify-content-center text-center">
+                                    <label for="max">Max Price</label>
+                                    <input type="number" name="max-price" id="max" class="form-control" value="{{ isset($_REQUEST['max-price']) ? $_REQUEST['max-price'] : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @isset($_REQUEST['query'])
+                        <input type="hidden" name="query" value="{{ $_REQUEST['query'] }}">
+                    @endisset
+                    @isset($_REQUEST['category'])
+                        <input type="hidden" name="category" value="{{ $_REQUEST['category'] }}">
+                    @endisset
+                    <input type="submit" value="Filter" class="btn btn-outline-dark align-self-center">
+                </form>
+                <div class="d-flex flex-column">
+                    <hr class="border-danger">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-4 justify-content-center">
+                        @foreach ($products as $product)
+                            <x-admin-product :product="$product" />
+                        @endforeach
+                    </div>
+                    @if ($products->hasPages())
+                        <div>
+                            {{ $products->appends(request()->query())->links() }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    @else
+    <div class="p-4 text-center bg-white text-danger shadow">
+        <h2>There is no Products to show.</h2>
+    </div>
+    @endif
+</x-app-layout>

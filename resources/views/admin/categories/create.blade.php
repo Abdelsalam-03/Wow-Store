@@ -53,7 +53,7 @@
                     @csrf
                     <div>
                         <label for="name">Category Name</label>
-                        <input type="text" name="name" id="name" class="form-control" required>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                         @error('name')
                             <script>
                                 viewAlert('danger', "{{ $message }}")

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 class Product extends Model
@@ -23,6 +25,11 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function onCart(): HasMany
+    {
+        return $this->hasMany(Cart::class);
     }
 
     public static function filter(Request $request){
@@ -47,7 +54,7 @@ class Product extends Model
 
         if ($request->query('order-by')) {
             $orderBy = $request->query('order-by');
-            if ($orderBy != 'name' && $orderBy != 'price') {
+            if ($orderBy != 'name' && $orderBy != 'price' && $orderBy != 'stock') {
                 $orderBy = 'price';
             }
             $order = $request->query('order-by');

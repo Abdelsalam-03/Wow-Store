@@ -129,7 +129,7 @@
                 @if ($products->hasPages())
                     <hr>
                     <div id="pagination-liks-products">
-                        {{ $products->appends(request()->query())->links('pagination::bootstrap-5') }}
+                        {{ $products->appends(request()->query())->links() }}
                     </div>
                 @endif
             </div>
