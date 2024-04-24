@@ -55,6 +55,7 @@ Route::middleware(['auth', admin::class])->group(function (){
         Route::patch('/orders/process/{order}', [AdminOrderController::class, 'process'])->name('orders.process');
         Route::patch('/orders/ship/{order}', [AdminOrderController::class, 'ship'])->name('orders.ship');
         Route::patch('/orders/arrive/{order}', [AdminOrderController::class, 'arrive'])->name('orders.arrive');
+        Route::post('/orders/search', [AdminOrderController::class, 'search'])->name('orders.search');
     });
 });
 

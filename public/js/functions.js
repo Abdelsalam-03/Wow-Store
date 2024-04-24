@@ -268,3 +268,10 @@ function createUserAddress() {
         });
     }
 }
+
+function addAutoSubmitToFilteringOrders() {
+    form = document.querySelector('.order-status-form');
+    if (form) {
+        form.querySelector('select').addEventListener('change', () => form.submit());
+    }
+}

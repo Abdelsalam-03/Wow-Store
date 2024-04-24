@@ -1,4 +1,14 @@
 <x-app-layout>
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
     <x-slot name="orders">
         <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
             Orders
@@ -14,7 +24,31 @@
             Orders
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="d-flex justify-content-center my-3">
+        <div class="p-4 bg-white rounded d-flex flex-column shadow gap-4">
+            <form action="{{ route('admin.orders.search') }}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="id" class="form-control" required>
+                    <input type="submit" value="Search" class="btn btn-dark">
+                </div>
+            </form>
+            <p class="text-center m-0">Filter Orders</p>
+            <form action="{{ route('admin.orders') }}" method="GET" class="order-status-form">
+                <div class="d-flex gap-3 align-items-center">
+                    <select name="status" class="form-control">
+                        <option value="" selected>All</option>
+                        <option value="pending" @selected(isset($_GET['status']) && $_GET['status'] == 'pending')>Pending</option>
+                        <option value="processing" @selected(isset($_GET['status']) && $_GET['status'] == 'processing')>Processing</option>
+                        <option value="shipped" @selected(isset($_GET['status']) && $_GET['status'] == 'shipped')>Shipped</option>
+                        <option value="delivered" @selected(isset($_GET['status']) && $_GET['status'] == 'delivered')>Delivered</option>
+                        <option value="canceled" @selected(isset($_GET['status']) && $_GET['status'] == 'canceled')>Canceled</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 @if (! count($orders)) {{'d-none'}} @endif">
                 <div class="row g-4">
@@ -91,4 +125,7 @@
             </div>
         </div>
     </div>
+    <script>
+        addAutoSubmitToFilteringOrders();
+    </script>
 </x-app-layout>

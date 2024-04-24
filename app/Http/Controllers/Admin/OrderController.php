@@ -77,4 +77,14 @@ class OrderController extends Controller
 
     }
 
+    public function search(Request $request)
+    {
+        $order = Order::find($request->id);
+        if ($order) {
+            return redirect(route('admin.orders.show', ['order' => $order->id]));
+        } else {
+            return redirect()->back()->with('fail', 'Order Not Found');
+        }
+    }
+
 }
