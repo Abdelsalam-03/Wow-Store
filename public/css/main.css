@@ -7,3 +7,9 @@
 .delete:hover{
     color: #dc3545;
 }
+.admin-item{
+    transition: 0.1s;
+}
+.admin-item:hover{
+    transform: scale(1.02);
+}

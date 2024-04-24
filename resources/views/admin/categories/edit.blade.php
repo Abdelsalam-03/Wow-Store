@@ -1,27 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit</title>
-</head>
-<body>
-    <div class="container">
-        <form action="{{ route('admin.categories.update', ['category' => $category->id]) }}" method="POST" class="row-md d-flex-md">
-            @csrf
-            @method('PUT')
-            <div class="mb-3 col-md-7">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" id="name" value="{{ $category->name }}">
-                @error('name')
-                    <div class="text-danger m-2">{{$message}}</div>
-                @enderror
-              </div>
-                <div class="col-md-7">
-                    <input type="submit" value="Update" class="form-control btn btn-success">
-                </div>
-        </form>
+<x-app-layout>
+    @if(session('success'))
+    <script>
+        viewAlert('success', "{{ session('success') }}");
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        viewAlert('danger', "{{ session('fail') }}")
+    </script>
+    @endif
+    <x-slot name="orders">
+        <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+            Orders
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="ordersResponsive">
+        <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+            Orders
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="categories">
+        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="categoriesResponsive">
+        <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="products">
+        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            products
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="productsResponsive">
+        <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            Products
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight m-0">
+                Update Category
+            </h2>
+        </div>
+    </x-slot>
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg d-flex flex-column gap-3">
+                <form action="{{ route('admin.categories.update', ['category' => $category->id]) }}" method="POST" class="d-flex flex-column gap-2">
+                    @csrf
+                    @method('PUT')
+                    <div>
+                        <label for="name">Category Name</label>
+                        <input type="text" name="name" id="name" value="{{ $category->name }}" class="form-control" required>
+                        @error('name')
+                            <script>
+                                viewAlert('danger', "{{ $message }}")
+                            </script>
+                        @enderror
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-primary align-self-start ">
+                </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</x-app-layout>

@@ -18,6 +18,12 @@
                     @isset($orders)
                         {{ $orders }}
                     @endisset
+                    @isset($categories)
+                        {{ $categories }}
+                    @endisset
+                    @isset($products)
+                        {{ $products }}
+                    @endisset
                 </div>
                 
                 
@@ -81,6 +87,12 @@
             </x-responsive-nav-link>
             @isset($ordersResponsive)
                 {{ $ordersResponsive }}
+            @endisset
+            @isset($categoriesResponsive)
+                {{ $categoriesResponsive }}
+            @endisset
+            @isset($productsResponsive)
+                {{ $productsResponsive }}
             @endisset
         </div>
 

@@ -19,6 +19,26 @@
             Orders
         </x-responsive-nav-link>
     </x-slot>
+    <x-slot name="categories">
+        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="categoriesResponsive">
+        <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+            Categories
+        </x-responsive-nav-link>
+    </x-slot>
+    <x-slot name="products">
+        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            products
+        </x-nav-link>
+    </x-slot>
+    <x-slot name="productsResponsive">
+        <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+            Products
+        </x-responsive-nav-link>
+    </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Orders
@@ -100,7 +120,7 @@
                                     </div>
                                     <div class="col-12"><hr class="border-primary"></div>
                                     <div class="col-12 text-end d-flex justify-content-end gap-3">
-                                        <a href="{{ route('admin.orders.show', ['order' => $order->id]) }}" class="btn btn-primary">Show Order</a>
+                                        <a href="{{ route('admin.orders.show', ['order' => $order->id]) }}" class="btn btn-outline-primary">Show Order</a>
                                         @if ($order->status == 'pending')
                                             <form action="{{ route('user.orders.delete', ['order' => $order->id]) }}" method="POST">
                                                 @csrf

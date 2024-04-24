@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use app\http\Controllers\Controller;
 use App\models\Category;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.categories.index', ['categories' => Category::all()]);
+        return view('admin.categories.index', ['categories' => Category::filter($request)->paginate(10)]);
     }
 
     /**
@@ -34,9 +35,9 @@ class CategoryController extends Controller
         ]);
         Category::create(['name' => $request->name]);
         if (isset($request->return)) {
-            return view('admin.categories.create', ['checked' => true]);
+            return redirect(route('admin.categories.create'))->with('success', 'Category Created');
         }
-        return redirect(route('admin.categories.index'));
+        return redirect(route('admin.categories.index'))->with('success', 'Category Created');
     }
 
     /**
@@ -44,7 +45,10 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        return(view('admin.categories.show', ['category' => Category::findOrFail($id)]));
+        return(view('admin.categories.show', [
+            'category' => Category::findOrFail($id), 
+            'products' => Product::select()->where('category_id', '=', $id)->paginate(10)
+        ]));
     }
     
     /**
@@ -61,12 +65,12 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required',],
+            'name' => ['required', 'unique:categories'],
         ]);
         $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->save();
-        return redirect(route('admin.categories.show', ['category' => $id]));
+        return redirect(route('admin.categories.show', ['category' => $id]))->with('success', 'Category Updated');
     }
 
     /**
@@ -75,6 +79,6 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Category::destroy($id);
-        return redirect(route('admin.categories.index'));
+        return redirect(route('admin.categories.index'))->with('success', 'Category Deleted');
     }
 }
