@@ -29,28 +29,38 @@
     </x-slot> --}}
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner width-limit">
-          <div class="carousel-item active">
-            <img src="{{ asset('storage/' . $settings->default_products_photo) }}" class="d-block w-100 mh-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="{{ asset('storage/' . $settings->default_products_photo) }}" class="d-block w-100 mh-100" alt="...">
-          </div>
+            @php
+                $activated = false;
+            @endphp
+            @foreach ($categories as $category)
+                @if ($category->photo && count($category->products))
+                    <div class="carousel-item {{ !$activated ? 'active' : '' }}">
+                        <img src="{{ asset('storage/' . $category->photo) }}" class="d-block w-100 mh-100" alt="...">
+                    </div>
+                    @php
+                        $activated = true;    
+                    @endphp
+                @endif
+            @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
         </button>
-      </div>
+    </div>
+
     <div class="bg-white shadow">
         <div class="container">
             <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
                 <a href="{{ route('home') }}#products"class="btn btn-sm btn-outline-dark">All</a>
                 @foreach ($categories as $category)
-                    <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-dark bg-gradient">{{ $category->name }}</a>
+                    @if (count($category->products))
+                        <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-dark bg-gradient">{{ $category->name }}</a>
+                    @endif
                 @endforeach
             </div>
         </div>

@@ -135,7 +135,7 @@
 
         bs_modal.on('shown.bs.modal', function() {
             cropper = new Cropper(image, {
-                aspectRatio: 3/2,
+                aspectRatio: 2/1,
                 viewMode: 3,
                 preview: '.preview'
             });
@@ -146,8 +146,8 @@
 
         $("#crop").click(function() {
             canvas = cropper.getCroppedCanvas({
-                width: 1500,
-                height: 1000,
+                width: 1300,
+                height: 750,
             });
 
             canvas.toBlob(function(blob) {
