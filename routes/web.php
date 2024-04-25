@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::get('/cart/all', [CartController::class, 'all']);
+    Route::post('/cart/all', [CartController::class, 'all']);
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
@@ -59,10 +59,6 @@ Route::middleware(['auth', admin::class])->group(function (){
     });
 });
 
-Route::get('/categories', UserCategoryController::class . '@index')->name('user.categories');
-Route::get('/categories/{category}', UserCategoryController::class . '@show')->name('user.category');
-
-Route::get('/products', UserProductController::class . '@index')->name('user.products');
-Route::get('/products/{product}', UserProductController::class . '@show')->name('user.product');
+Route::get('/products/{product}', UserProductController::class . '@show')->name('user.product');  
 
 Route::get('/livesearch', [LiveController::class, 'liveSearch']);
