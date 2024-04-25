@@ -24,9 +24,6 @@
             My Orders
         </x-responsive-nav-link>
     </x-slot>
-    {{-- <x-slot name="header">
-        Home
-    </x-slot> --}}
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner width-limit">
             @php

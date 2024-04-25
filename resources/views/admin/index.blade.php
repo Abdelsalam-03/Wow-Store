@@ -61,14 +61,14 @@
                         
                         <a href="{{route('admin.categories.index')}}" class="text-decoration-none text-dark">
                             <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-warning admin-item">
-                                Categories
+                                Categories - ({{ $totalCategories }})
                             </div>
                         </a>
                     </div>
                     <div class="col">
                         <a href="{{route('admin.products.index')}}" class="text-decoration-none text-dark">
                             <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-primary admin-item">
-                                Products
+                                Products - ({{ $totalProducts }})
                             </div>
                         </a>
                     </div>
