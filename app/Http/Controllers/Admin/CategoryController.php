@@ -51,7 +51,8 @@ class CategoryController extends Controller
     {
         return(view('admin.categories.show', [
             'category' => Category::findOrFail($id), 
-            'products' => Product::select()->where('category_id', '=', $id)->paginate(10)
+            'products' => Product::select()->where('category_id', '=', $id)->paginate(10),
+            'settings' => Settings::settings(),
         ]));
     }
     

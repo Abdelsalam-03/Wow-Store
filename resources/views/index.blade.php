@@ -32,16 +32,15 @@
             <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
                 <a href="{{ route('home') }}#products"class="btn btn-sm btn-outline-dark">All</a>
                 @foreach ($categories as $category)
-                    <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-secondary">{{ $category->name }}</a>
+                    <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-dark bg-gradient">{{ $category->name }}</a>
                 @endforeach
             </div>
         </div>
     </div>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            
-            <div class="p-4 bg-white rounded shadow d-flex flex-column gap-4">
-                <form action="/#products" method="GET" class="shadow-sm">
+    <div class="py-6 gradient-background">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"> 
+            <div class="p-4 rounded d-flex flex-column gap-4">
+                <form action="/#products" method="GET" class="rounded shadow">
                     <div class="input-group">
                         <input type="text" name="query" data-bs-toggle="modal" class="form-control" data-bs-target="#staticBackdrop" onclick="prepareForSearch()" value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}">
                         <input type="submit" value="Search" class="btn btn-primary">
@@ -65,8 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <form action="/#products" class="d-flex flex-column justify-content-center gap-4">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                <form action="/#products" class="d-flex flex-column justify-content-center gap-4 bg-white shadow rounded p-4 pb-5 position-relative">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
                         <div class="col">
                             <div class=" d-flex justify-content-center align-items-center gap-2 rounded bg-light shadow-sm p-3 h-100">
                                 <label for="order-by" style="white-space: nowrap">Order By</label>
@@ -112,13 +111,12 @@
                     @isset($_REQUEST['category'])
                         <input type="hidden" name="category" value="{{ $_REQUEST['category'] }}">
                     @endisset
-                    <input type="submit" value="Filter" class="btn btn-outline-primary align-self-center">
+                    <input type="submit" value="Filter" class="btn btn-secondary bg-gradient align-self-center position-absolute top-100 start-50 translate-middle">
                 </form>
-            </div>
-            
+            </div>            
         </div>
     </div>
-    <div class="">
+    <div class="pt-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
             <div class="p-4 bg-white rounded shadow d-flex flex-column gap-3" id="products">

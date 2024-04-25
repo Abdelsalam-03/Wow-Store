@@ -52,7 +52,7 @@
                             </a>    
                         @else
                             <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-danger admin-item">
-                                Pending Orders
+                                Pending Orders - (0)
                             </div>
 
                         @endif

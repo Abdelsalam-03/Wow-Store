@@ -30,15 +30,15 @@
                     </div>
                 </form>
                 <form action="" class="d-flex flex-column justify-content-center gap-4">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
                         <div class="col">
                             <div class=" d-flex justify-content-center align-items-center gap-2 rounded bg-light shadow-sm p-3 h-100">
                                 <label for="order-by" style="white-space: nowrap">Order By</label>
                                 <select class="form-select" id="order-by" aria-label="Default select example" name="order-by">
                                     <option value="0" selected>None</option>
-                                    <option value="name">Name</option>
-                                    <option value="price">Price</option>
-                                    <option value="stock">Stock</option>
+                                    <option value="name" @selected(isset($_GET['order-by']) && $_GET['order-by'] == 'name')>Name</option>
+                                    <option value="price" @selected(isset($_GET['order-by']) && $_GET['order-by'] == 'price')>Price</option>
+                                    <option value="stock" @selected(isset($_GET['order-by']) && $_GET['order-by'] == 'stock')>Stock</option>
                                 </select>
                             </div>
                         </div>
