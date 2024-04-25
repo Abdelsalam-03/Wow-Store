@@ -52,6 +52,10 @@ class Product extends Model
             $products = $products->where('category_id', '=', $query);
         }
 
+        if ($request->onStock) {
+            $products = $products->where('stock', '>', '0');
+        }
+
         if ($request->query('order-by')) {
             $orderBy = $request->query('order-by');
             if ($orderBy != 'name' && $orderBy != 'price' && $orderBy != 'stock') {

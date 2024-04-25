@@ -10,7 +10,7 @@
             </span>
         @endif
         <a href="{{ route('admin.products.show', ['product' => $product->id]) }}">
-        <img class="card-img-top" src="{{$product->photo? asset('storage/' . $product->photo) : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'}}" alt="..." />
+        <img class="card-img-top" src="{{$product->photo? asset('storage/' . $product->photo) : ''}}" alt="Product Image" />
         </a>
         <div class="card-body p-4">
             <div class="text-center">

@@ -10,7 +10,7 @@ class LiveController extends Controller
     function liveSearch(Request $request)
     {
         if ($request->query('query')) {
-            return response()->json(Product::filter($request)->paginate(10));
+            return response()->json(Product::filter($request)->paginate(8));
         }
     }
 }

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
 
-    function index(){
+    function index()
+    {
         return view('cart', ['content' => DB::table('carts')
         ->join('products', 'products.id', '=', 'carts.product_id')
         ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.photo', 'products.stock')
@@ -19,11 +20,13 @@ class CartController extends Controller
         ->get()]);
     }
 
-    function all(){
+    function all()
+    {
         return response()->json(Auth::user()->cartContent);
     }
 
-    function add(REQUEST $request){
+    function add(REQUEST $request)
+    {
         $data = $request->all();
         $product = Product::find($data['productId']);
         $quantity = $request->quantity ? intval($request->quantity) : 1;
@@ -50,9 +53,9 @@ class CartController extends Controller
                 $productOnCart->quantity = $quantity;
                 $productOnCart->save();
                 if (isset($data['return-to-home'])) {
-                    return redirect(route('home'))->with('success', 'Quantity Updated Successfully');
+                    return redirect(route('home'))->with('success', 'Product Added Successfully');
                 } else {
-                    return response()->json(['message' => 'Quantity Updated Successfully']);
+                    return response()->json(['message' => 'Product Added Successfully']);
                 }
             } else {
                 Cart::create(['product_id' => $product->id, 'user_id' => Auth::id(), 'quantity' => $quantity]);
@@ -67,7 +70,8 @@ class CartController extends Controller
         }
     }
 
-    function update(Request $request){
+    function update(Request $request)
+    {
         $request->validate([
             'quantity' => 'required|numeric',
         ]);
@@ -93,7 +97,8 @@ class CartController extends Controller
         return redirect(route('cart'));
     }
 
-    function remove(string $id, Request $request){
+    function remove(string $id, Request $request)
+    {
         Cart::where('product_id', '=', $id)
             ->where('user_id', '=', Auth::id())
             ->delete();
@@ -104,7 +109,8 @@ class CartController extends Controller
         }
     }
 
-    function destroy(){
+    function destroy()
+    {
         Cart::where('user_id', '=', Auth::id())->delete();
         return redirect(route('cart'));
     }

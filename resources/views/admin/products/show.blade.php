@@ -73,7 +73,7 @@
                     </div>
                     <p class="fs-6">{{ isset($product->description) ? 'Description : ' . $product->description : "" }}</p>
                     <div class="d-flex flex-row gap-2">
-                        <a href="" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('admin.products.edit', ['product' => $product->id]) }}" class="btn btn-primary">Edit</a>
                         <form action="{{ route('admin.products.destroy', ['product' => $product->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')

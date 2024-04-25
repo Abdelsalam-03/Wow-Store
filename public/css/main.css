@@ -13,3 +13,9 @@
 .admin-item:hover{
     transform: scale(1.02);
 }
+.live-search-link{
+    transition: 0.2s;
+}
+.live-search-link:hover{
+    background-color: #e9e9e95e;
+}

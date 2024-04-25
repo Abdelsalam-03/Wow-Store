@@ -21,15 +21,19 @@ function viewAlert(type, message){
 
 function cart() {
     fetch('/cart/all', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
         },
     })
     .then(response => response.json())
     .then(data => {
         if (data.length > 0) {
-            document.getElementById('cart-indicator').classList.remove('d-none');
+            cartIndicator = document.getElementById('cart-indicator');
+            if(cartIndicator){
+                cartIndicator.classList.remove('d-none');
+            }
         }
     })
     .catch(error => {
@@ -37,24 +41,6 @@ function cart() {
     });
 }
 
-function removeFromCart(id) {
-    data = { response: 'message' };
-    fetch('/cart/' + id, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
 function addToCart(id, quantity = null) {
     data = null ;
     if (quantity) {
@@ -70,64 +56,25 @@ function addToCart(id, quantity = null) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
+    .then(response => {
+        if (response.status >= 400 && response.status < 600) {
+          return response.json().then(errorData => {
+            viewAlert('danger', errorData.message);
+            throw new Error(errorData.message);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        viewAlert('success', data.message);
         cartIndicator = document.getElementById('cart-indicator');
         if (cartIndicator) {
             cartIndicator.classList.remove('d-none');
         }
-    })
+      })
     .catch(error => {
-        console.error('Error:', error);
     });
 }
-
-// function fillCart(content) {
-//     cartElement = document.querySelector('.cart');
-//     content.forEach(element => {
-//         let component = document.createElement('div');                
-//         let id = document.createElement('p');                
-//         let quantity = document.createElement('p');
-//         let removeBotton = document.createElement('button');
-//         removeBotton.addEventListener('click', () => remove(element.product_id));
-//         quantity.className = 'quantity';
-//         id.innerHTML = 'Name : ' + element.product_id;
-//         quantity.innerHTML = element.quantity;
-//         removeBotton.innerHTML = 'Remove';
-//         component.id = element.product_id + 'cart';
-//         component.append(id);
-//         component.append(quantity);
-//         component.append(removeBotton);
-//         component.append(document.createElement('hr'));
-//         cartElement.appendChild(component);
-//     });
-// }
-// function fillSpecificCart(productId) {
-//     element = document.getElementById(productId + 'cart');
-//     if (element) {
-//         element.querySelector('.quantity').innerHTML = (+element.querySelector('.quantity').innerHTML + 1);
-//     } else {
-//         cartElement = document.querySelector('.cart');
-//         if (cartElement) {
-//             let component = document.createElement('div');                
-//             let id = document.createElement('p');                
-//             let quantity = document.createElement('p');
-//             let removeBotton = document.createElement('button');
-//             removeBotton.addEventListener('click', () => remove(productId));
-//             quantity.className = 'quantity';
-//             id.innerHTML = 'Name : ' + productId;
-//             quantity.innerHTML = 1;
-//             removeBotton.innerHTML = 'Remove';
-//             component.id = productId + 'cart';
-//             component.append(id);
-//             component.append(quantity);
-//             component.append(removeBotton);
-//             component.append(document.createElement('hr'));
-//             cartElement.appendChild(component);
-//         }
-//     }
-// }
 
 function liveSearchListener(){
     document.getElementById("live-search-input").addEventListener("input", function(event) {
@@ -150,22 +97,28 @@ function liveSearch(query) {
         resultsPanel = document.getElementById('live-search-results');
         data['data'].forEach(element => {
             product = document.createElement('div');
+            product.classList.add('d-flex', 'align-items-center');
             product_link = document.createElement('a');
             product_name = document.createElement('p');
             product_price = document.createElement('p');
             product_link.setAttribute('href', '/products/' + element.id);
-            product_link.classList.add('d-flex', 'justify-content-center', 'align-items-center');
+            product_link.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'flex-1', 'p-3', 'live-search-link');
+            product_name.classList.add('m-0', 'fw-bold');
+            product_price.classList.add('m-0');
             product_name.innerHTML = element.name;
-            product_price.innerHTML = element.price;
+            product_price.innerHTML = "Price : " + element.price;
             product_link.appendChild(product_name);
             product_link.appendChild(product_price);
             product.appendChild(product_link);
             resultsPanel.appendChild(product);
-            resultsPanel.appendChild(document.createElement('hr'));
+            hr = document.createElement('hr');
+            hr.classList.add('m-0');
+            resultsPanel.appendChild(hr);
         });
         if (data['to'] < data['total']) {
             more_link = document.createElement('a');
-            more_link.setAttribute('href', '?query=' + query);
+            more_link.classList.add('btn', 'btn-primary', 'align-self-center', 'mt-2')
+            more_link.setAttribute('href', '?query=' + query + "#products");
             more_link.innerHTML = "More...";
             resultsPanel.appendChild(more_link);
         }

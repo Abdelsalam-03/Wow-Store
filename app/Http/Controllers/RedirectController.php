@@ -9,10 +9,14 @@ class RedirectController extends Controller
 {
     function __invoke()
     {
-        $role = Auth::user()->role;
-        if ($role  == 'admin') {
-            return redirect(route('admin.home'));
-        } elseif ($role  == 'user') {
+        if (Auth::check()) {
+            $role = Auth::user()->role;
+            if ($role  == 'admin') {
+                return redirect(route('admin.home'));
+            } elseif ($role  == 'user') {
+                return redirect(route('home'));
+            }
+        } else {
             return redirect(route('home'));
         }
     }

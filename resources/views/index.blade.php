@@ -24,36 +24,47 @@
             My Orders
         </x-responsive-nav-link>
     </x-slot>
-    <x-slot name="header">
-        <form action="/#products" method="GET">
-            <div class="input-group">
-                <input type="text" name="query" data-bs-toggle="modal" class="form-control" data-bs-target="#staticBackdrop" onclick="prepareForSearch()" value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}">
-                <input type="submit" value="Search" class="btn btn-primary">
-            </div>
-        </form>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                <div class="modal-header gap-2">
-                    <form action="/#products" method="GET" class="w-100">
-                        <div class="input-group">
-                            <input type="text" name="query" id="live-search-input" class="form-control btn-primary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            <input type="submit" class="btn btn-primary" id="inputGroup-sizing-sm" value="Search">
-                        </div>
-                    </form>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="live-search-results"></div>
-                </div>
-                </div>
+    {{-- <x-slot name="header">
+        Home
+    </x-slot> --}}
+    <div class="bg-white shadow">
+        <div class="container">
+            <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
+                <a href="{{ route('home') }}#products"class="btn btn-sm btn-outline-dark">All</a>
+                @foreach ($categories as $category)
+                    <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-secondary">{{ $category->name }}</a>
+                @endforeach
             </div>
         </div>
-    </x-slot>
-    <div class="py-12">
+    </div>
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
-            <div class="p-4 bg-white rounded shadow d-flex flex-column gap-3">
+            <div class="p-4 bg-white rounded shadow d-flex flex-column gap-4">
+                <form action="/#products" method="GET" class="shadow-sm">
+                    <div class="input-group">
+                        <input type="text" name="query" data-bs-toggle="modal" class="form-control" data-bs-target="#staticBackdrop" onclick="prepareForSearch()" value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}">
+                        <input type="submit" value="Search" class="btn btn-primary">
+                    </div>
+                </form>
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                        <div class="modal-header gap-2">
+                            <form action="/#products" method="GET" class="w-100">
+                                <div class="input-group">
+                                    <input type="text" name="query" id="live-search-input" class="form-control btn-primary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="submit" class="btn btn-primary" id="inputGroup-sizing-sm" value="Search">
+                                </div>
+                            </form>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="live-search-results" class="d-flex flex-column"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
                 <form action="/#products" class="d-flex flex-column justify-content-center gap-4">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
                         <div class="col">
@@ -61,8 +72,8 @@
                                 <label for="order-by" style="white-space: nowrap">Order By</label>
                                 <select class="form-select" id="order-by" aria-label="Default select example" name="order-by">
                                     <option value="0" selected>None</option>
-                                    <option value="name">Name</option>
-                                    <option value="price">Price</option>
+                                    <option value="name" @selected(isset($_GET['order-by']) && $_GET['order-by'] == 'name')>Name</option>
+                                    <option value="price" @selected(isset($_GET['order-by']) && $_GET['order-by'] == 'price')>Price</option>
                                 </select>
                             </div>
                         </div>
@@ -107,23 +118,17 @@
             
         </div>
     </div>
-    <div class="bg-white">
-        <div class="">
-            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 overflow-auto d-flex gap-2 justify-content-center hide-scrollbar">
-                <a href="{{ route('home') }}#products"class="btn btn-sm btn-secondary">All</a>
-                @foreach ($categories as $category)
-                <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-secondary">{{ $category->name }}</a>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
+    <div class="">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
             <div class="p-4 bg-white rounded shadow d-flex flex-column gap-3" id="products">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
                     @foreach ($products as $product)
-                        <x-product :product="$product" />
+                        @guest
+                            <x-product :product="$product" :guest="true" />
+                        @else
+                            <x-product :product="$product" />
+                        @endguest
                     @endforeach
                 </div>
                 @if ($products->hasPages())
@@ -136,8 +141,12 @@
             
         </div>
     </div>
+    @auth
     <script>
         cart();
+    </script>
+    @endauth
+    <script>
         liveSearchListener();
         addTagToPaginationLinks('pagination-liks-products', 'products');
     </script>
