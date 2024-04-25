@@ -79,7 +79,7 @@ class CartController extends Controller
         $quantity = $request->quantity;
         if ($product) {
             if ($product->stock < $quantity) {
-                return redirect(route('cart'));
+                return redirect(route('cart'))->with('fail', 'Quantity More Than Stock');
             }
             $productOnCart = Cart::where('user_id', '=', Auth::id())
             ->where('product_id', '=', $product->id)
@@ -94,7 +94,7 @@ class CartController extends Controller
                 }
             }
         }
-        return redirect(route('cart'));
+        return redirect(route('cart'))->with('success', 'Quantity Updated Successfully');
     }
 
     function remove(string $id, Request $request)
