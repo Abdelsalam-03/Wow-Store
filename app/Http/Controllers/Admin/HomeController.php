@@ -32,7 +32,7 @@ class HomeController extends Controller
         $totalCategories = Category::select('id')->count();
         $totalProducts = Product::select('id')->count();
         $lowStockProducts = Product::select()
-                            ->where('stock', '<', $settings?->stock_warning)
+                            ->where('stock', '<', $settings?->stock_warning ? $settings->stock_warning : '5')
                             ->count();
         
         return view('admin.index', [

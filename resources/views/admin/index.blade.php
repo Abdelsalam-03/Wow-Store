@@ -114,7 +114,7 @@
                             <div class="d-flex flex-row">
                                 <div class="content flex-1">
                                     <h4 class="text-nowrap">Total Sales</h4>
-                                    <h2 class="text-nowrap text-primary">{{ $totalSales }}</h2>
+                                    <h2 class="text-nowrap text-primary">{{ $totalSales?$totalSales:'0' }}</h2>
                                 </div>
                                 <div class="image">
                                     <img src="{{asset('images/total.svg')}}" alt="Total Image" style="width: 300px">
