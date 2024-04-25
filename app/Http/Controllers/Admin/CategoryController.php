@@ -7,6 +7,7 @@ use app\http\Controllers\Controller;
 use App\models\Category;
 use App\Models\Product;
 use App\Models\Settings;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -36,8 +37,21 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', 'unique:categories',],
+            'photo' => ['required'],
         ]);
-        Category::create(['name' => $request->name]);
+
+        $image_parts = explode(";base64,", $request->photo);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $name = 'categories/' . time() . uniqid() . '.' . $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+
+        Storage::put('public/' . $name, $image_base64);
+
+        Category::create([
+            'name' => $request->name,
+            'photo' => $name,
+        ]);
+
         if (isset($request->return)) {
             return redirect(route('admin.categories.create'))->with('success', 'Category Created');
         }
@@ -69,11 +83,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'unique:categories'],
-        ]);
         $category = Category::findOrFail($id);
-        $category->name = $request->name;
+        if ($category->name == $request->name) {
+            $request->validate([
+                'photo' => ['required'],
+            ]);
+        } else {
+            $request->validate([
+                'name' => ['required', 'unique:categories'],
+                'photo' => ['required'],
+            ]);
+            $category->name = $request->name;
+        }
+
+
+        if ($request->photo != 'old') {
+            $image_parts = explode(";base64,", $request->photo);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $name = 'categories/' . time() . uniqid() . '.' . $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            Storage::put('public/' . $name, $image_base64);
+            if ($category->photo) {
+                Storage::delete('public/' . $category->photo);
+            }
+            $category->photo = $name;
+        }
+
         $category->save();
         return redirect(route('admin.categories.show', ['category' => $id]))->with('success', 'Category Updated');
     }
