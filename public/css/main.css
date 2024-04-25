@@ -20,8 +20,8 @@
     background-color: #e9e9e95e;
 }
 .gradient-background{
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    background-color: #63aff7;
+    background-image: linear-gradient(62deg, #21252985 0%, #414548 100%);
 }
 .width-limit{
     max-height: 100vh;
