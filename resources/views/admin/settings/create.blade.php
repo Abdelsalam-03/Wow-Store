@@ -75,6 +75,15 @@
                         @enderror
                     </div>
                     <div>
+                        <label for="stock_warning" class="form-label">Stock Warning</label>
+                        <input type="number" name="stock_warning" id="stock_warning" class="form-control" value="{{old('stock_warning')}}" required>
+                        @error('stock_warning')
+                            <script>
+                                viewAlert('danger', "{{$message}}");
+                            </script>
+                        @enderror
+                    </div>
+                    <div>
                         <label for="default_photo" class="form-label">Default Product Photo</label>
                         <input type="file" name="default_photo" class="form-control image" id="default_photo">
                         <input type="hidden" name="photo" class="imageField" value="{{ old('photo') }}" required>

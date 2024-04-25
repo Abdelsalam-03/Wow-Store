@@ -4,7 +4,7 @@
             <span class="position-absolute top-0 start-50 translate-middle p-2 badge rounded-pill bg-danger">
                 Out Of Stock
             </span>
-        @elseif($product->stock <= 5)
+        @elseif($product->stock <= $settings->stock_warning)
             <span class="position-absolute top-0 start-50 translate-middle p-2 badge rounded-pill bg-warning text-dark">
                 Low Stock
             </span>

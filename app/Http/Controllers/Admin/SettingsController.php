@@ -36,6 +36,7 @@ class SettingsController extends Controller
     {
         $request->validate([
             'shipping_cost' => ['required', 'numeric'],
+            'stock_warning' => ['required', 'numeric'],
             'photo' => ['required'],
         ]);
 
@@ -49,6 +50,7 @@ class SettingsController extends Controller
         $settings = new Settings();
 
         $settings->shipping_cost = $request->shipping_cost;
+        $settings->stock_warning = $request->stock_warning;
         $settings->default_products_photo = $name;
 
         $settings->save();
@@ -61,6 +63,7 @@ class SettingsController extends Controller
     {
         $request->validate([
             'shipping_cost' => ['required', 'numeric'],
+            'stock_warning' => ['required', 'numeric'],
             'photo' => ['required'],
         ]);
 
@@ -77,6 +80,7 @@ class SettingsController extends Controller
         }
         
         $settings->shipping_cost = $request->shipping_cost;
+        $settings->stock_warning = $request->stock_warning;
         $settings->save();
 
         return redirect(route('admin.settings'))->with('success', 'Settings Updated Successfully');

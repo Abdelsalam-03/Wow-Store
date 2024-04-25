@@ -51,6 +51,16 @@
                         @enderror
                     </div>
                     <input type="submit" value="Update" class="btn btn-primary align-self-start">
+                    <div>
+                        <label for="stock_warning" class="form-label">Stock Warning</label>
+                        <input type="number" name="stock_warning" id="stock_warning" class="form-control" value="{{ $settings->stock_warning }}" required>
+                        @error('stock_warning')
+                            <script>
+                                viewAlert('danger', "{{$message}}");
+                            </script>
+                        @enderror
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-primary align-self-start">
                     <div class="d-flex flex-column">
                         <p>Current Photo</p>
                         <img src="{{ asset('storage/' . $settings->default_products_photo) }}" alt="image" class="rounded" style="max-width: 250px">

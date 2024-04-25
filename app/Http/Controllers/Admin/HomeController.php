@@ -15,6 +15,7 @@ class HomeController extends Controller
 {
     function __invoke()
     {
+        $settings = Settings::settings();
         $totalAdmins = User::select('id')->where('role', '=', 'admin')->count();
         $pendingOrders = Order::select()
                         ->where('status', '=', 'pending')
@@ -31,12 +32,12 @@ class HomeController extends Controller
         $totalCategories = Category::select('id')->count();
         $totalProducts = Product::select('id')->count();
         $lowStockProducts = Product::select()
-                            ->where('stock', '<', '6')
+                            ->where('stock', '<', $settings?->stock_warning)
                             ->count();
         
         return view('admin.index', [
             'role' => Auth::user()->role,
-            'settings' => Settings::settings(),
+            'settings' => $settings,
             'totalAdmins' => $totalAdmins,
             'pendingOrders' => $pendingOrders,
             'processingOrders' => $processingOrders,
