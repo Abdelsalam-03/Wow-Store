@@ -9,16 +9,6 @@
         viewAlert('danger', "{{ session('fail') }}")
     </script>
     @endif
-    <x-slot name="orders">
-        <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
-            Orders
-        </x-nav-link>
-    </x-slot>
-    <x-slot name="ordersResponsive">
-        <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
-            Orders
-        </x-responsive-nav-link>
-    </x-slot>
     <x-slot name="links">
         <div class="d-flex align-items-center flex-fill justify-content-end mx-2">
             <x-invoice-button :status="$order->status" :order="$order" :orderProducts="$orderProducts" />

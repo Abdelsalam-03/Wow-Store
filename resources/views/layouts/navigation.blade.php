@@ -16,14 +16,19 @@
                         Home
                     </x-nav-link>
                     @auth
-                        @isset($orders)
-                            {{ $orders }}
-                        @endisset
-                        @isset($categories)
-                            {{ $categories }}
-                        @endisset
-                        @isset($products)
-                            {{ $products }}
+                        @isset($adminLinks)
+                            <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+                                Orders
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                                Categories
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                                products
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
+                                Settings
+                            </x-nav-link>
                         @endisset
                     @else
                         <x-nav-link :href="route('login')">
@@ -98,14 +103,19 @@
                 Home
             </x-responsive-nav-link>
             @auth
-                @isset($ordersResponsive)
-                    {{ $ordersResponsive }}
-                @endisset
-                @isset($categoriesResponsive)
-                    {{ $categoriesResponsive }}
-                @endisset
-                @isset($productsResponsive)
-                    {{ $productsResponsive }}
+                @isset($adminLinks)
+                    <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
+                        Orders
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                        Categories
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                        Products
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
+                        Settings
+                    </x-responsive-nav-link>
                 @endisset
             @else
                 <x-responsive-nav-link :href="route('login')">

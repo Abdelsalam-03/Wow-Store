@@ -9,35 +9,10 @@
         viewAlert('danger', "{{ session('fail') }}")
     </script>
     @endif
-    <x-slot name="orders">
-        <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
-            Orders
-        </x-nav-link>
+    <x-slot name="adminLinks">
     </x-slot>
-    <x-slot name="ordersResponsive">
-        <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
-            Orders
-        </x-responsive-nav-link>
-    </x-slot>
-    <x-slot name="categories">
-        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-            Categories
-        </x-nav-link>
-    </x-slot>
-    <x-slot name="categoriesResponsive">
-        <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-            Categories
-        </x-responsive-nav-link>
-    </x-slot>
-    <x-slot name="products">
-        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
-            products
-        </x-nav-link>
-    </x-slot>
-    <x-slot name="productsResponsive">
-        <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
-            Products
-        </x-responsive-nav-link>
+    <x-slot name="settingsResponsive">
+        
     </x-slot>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
