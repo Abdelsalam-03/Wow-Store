@@ -40,7 +40,7 @@ class CheckoutController extends Controller
         ->select('carts.product_id', 'carts.user_id', 'carts.quantity', 'products.name as name', 'products.price', 'products.stock')
         ->where('carts.user_id', '=', Auth::id())
         ->get();
-        $totalPrice = $settings->shipping_cost;
+        $totalPrice = 0;
         foreach ($items as $product) {
             if ($product->stock < $product->quantity) {
                 return redirect()->back()->with('fail', 'There Is Product Out Of Stock.');

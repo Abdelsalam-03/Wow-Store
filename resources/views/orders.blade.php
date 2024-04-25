@@ -53,7 +53,7 @@
                                     {{ date('Y-m-d', $order->date) }}
                                 </div>
                                 <div class="price col-4">
-                                    {{ $order->total }}
+                                    {{ $order->total + $order->shipping_cost }}
                                 </div>
                                 <div class="status col-4">
                                     <div class="d-flex flex-column">

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -35,6 +36,14 @@ class Order extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Order_product::class);
+    }
+
+    static function totalSales()
+    {
+        return self::select(DB::raw('SUM(total) as total'))
+            ->where('status', 'delivered')
+            ->first()->total;
+
     }
 
 

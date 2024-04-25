@@ -46,6 +46,7 @@ class HomeController extends Controller
             'totalCategories' => $totalCategories,
             'totalProducts' => $totalProducts,
             'lowStockProducts' => $lowStockProducts,
+            'totalSales' => Order::totalSales(),
         ]);
     }
 }

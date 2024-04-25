@@ -63,7 +63,7 @@
                                 <th scope="row" colspan="4">Shipping Cost - {{ $order->shipping_cost }}</th>
                             </tr>
                             <tr>
-                                <th scope="row">Total({{ $totalItems }})</th>
+                                <th scope="row">Total({{ $totalItems + $order->shipping_cost }})</th>
                                 <td colspan="2"></td>
                                 <td class="fw-bold">{{ $order->total }}</td>
                             </tr>

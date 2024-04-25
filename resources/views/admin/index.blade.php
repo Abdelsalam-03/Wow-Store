@@ -71,7 +71,7 @@
             </div>
 
             <div class="p-4 py-0 sm:p-8">
-                <div class="row">
+                <div class="row g-4">
                     @if ($pendingOrders || $processingOrders || $shippedOrders || $deliveredOrders)
                         @php
                             $totalOrders = $pendingOrders + $processingOrders + $shippedOrders + $deliveredOrders;
@@ -109,6 +109,19 @@
                             </div>
                         </div>
                     @endif
+                    <div class="col col-12 col-md-6">
+                        <div class="bg-white rounded p-4 shadow d-flex flex-column gap-2">
+                            <div class="d-flex flex-row">
+                                <div class="content flex-1">
+                                    <h4 class="text-nowrap">Total Sales</h4>
+                                    <h2 class="text-nowrap text-primary">{{ $totalSales }}</h2>
+                                </div>
+                                <div class="image">
+                                    <img src="{{asset('images/total.svg')}}" alt="Total Image" style="width: 300px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
