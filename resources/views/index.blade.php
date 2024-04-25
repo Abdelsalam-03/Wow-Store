@@ -33,9 +33,11 @@
                 $activated = false;
             @endphp
             @foreach ($categories as $category)
-                @if ($category->photo && count($category->products))
+                @if ($category->photo && $category->stock())
                     <div class="carousel-item {{ !$activated ? 'active' : '' }}">
-                        <img src="{{ asset('storage/' . $category->photo) }}" class="d-block w-100 mh-100" alt="...">
+                        <a href="?category={{ $category->id }}#products">
+                            <img src="{{ asset('storage/' . $category->photo) }}" class="d-block w-100 mh-100" alt="...">
+                        </a>
                     </div>
                     @php
                         $activated = true;    
@@ -58,7 +60,7 @@
             <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
                 <a href="{{ route('home') }}#products"class="btn btn-sm btn-outline-dark">All</a>
                 @foreach ($categories as $category)
-                    @if (count($category->products))
+                    @if ($category->stock())
                         <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-dark bg-gradient">{{ $category->name }}</a>
                     @endif
                 @endforeach

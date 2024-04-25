@@ -30,4 +30,13 @@ class Category extends Model
         return $categories;
     }
 
+    public function stock()
+    {
+        $stock = 0;
+        foreach ($this->products as $product) {
+            $stock+= $product->stock;
+        }
+        return $stock;
+    }
+
 }
