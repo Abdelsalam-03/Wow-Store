@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,6 +14,9 @@ class HomeController extends Controller
         $pendingOrders = Order::select()
                         ->where('status', '=', 'pending')
                         ->get();
-        return view('admin.index', ['pendingOrders' => $pendingOrders]);
+        return view('admin.index', [
+            'role' => Auth::user()->role,
+            'pendingOrders' => $pendingOrders,
+        ]);
     }
 }

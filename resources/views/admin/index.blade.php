@@ -53,6 +53,15 @@
 
             <div class="p-4 sm:p-8">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+                    @if ($role == 'manager')
+                        <div class="col">
+                            <a href="{{route('manager.admins.index')}}" class="text-decoration-none text-dark">
+                                <div class="bg-white rounded p-4 shadow text-center border-3 border-top-0 border-bottom-0 border-secondary admin-item">
+                                    Admins
+                                </div>
+                            </a>
+                        </div>
+                    @endif
                     <div class="col">
                         @php
                             $pendingTotal = count($pendingOrders);
