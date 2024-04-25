@@ -16,6 +16,9 @@
                         Home
                     </x-nav-link>
                     @auth
+                        @isset($orders)
+                            {{$orders}}
+                        @endisset
                         @isset($adminLinks)
                             <x-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
                                 Orders
@@ -103,6 +106,9 @@
                 Home
             </x-responsive-nav-link>
             @auth
+                @isset($ordersResponsive)
+                    {{ $ordersResponsive }}
+                @endisset
                 @isset($adminLinks)
                     <x-responsive-nav-link :href="route('admin.orders')" :active="request()->routeIs('admin.orders')">
                         Orders

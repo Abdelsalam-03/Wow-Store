@@ -47,12 +47,10 @@
                         <tbody>
                             @php
                                 $totalItems = 0;
-                                $totalPrice = 0;
                             @endphp
                             @foreach ($orderProducts as $product)
                             @php
                                 $totalItems+= $product->quantity;
-                                $totalPrice+= $product->price * $product->quantity;
                             @endphp
                             <tr>
                                 <th scope="row">{{ $product->product_id }}</th>
@@ -62,10 +60,13 @@
                             </tr>
                             @endforeach
                             <tr>
-                                <th scope="row">Total({{$totalItems}})</th>
+                                <th scope="row" colspan="4">Shipping Cost - {{ $order->shipping_cost }}</th>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total({{ $totalItems }})</th>
                                 <td colspan="2"></td>
-                                <td class="fw-bold">{{ $totalPrice }}</td>
-                              </tr>
+                                <td class="fw-bold">{{ $order->total }}</td>
+                            </tr>
                         </tbody>
                       </table>
                 </div>

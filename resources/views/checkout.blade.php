@@ -79,7 +79,7 @@
                             <hr>   
                             @php
                                 $totalProducts = 0;
-                                $totalPrice = 0;
+                                $totalPrice = $settings->shipping_cost;
                             @endphp
                             @foreach ($items as $product)
                                 <div class="col-3">
@@ -110,6 +110,10 @@
                                 @endif
                                 <hr>
                             @endforeach
+                            <div class="col">
+                                <strong>Shipping Cost</strong> - {{ $settings->shipping_cost }}
+                            </div>       
+                            <hr> 
                             <div class="col">
                                 Total({{ $totalProducts }}) <strong>{{ $totalPrice }}</strong>
                             </div> 

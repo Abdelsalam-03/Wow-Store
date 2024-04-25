@@ -80,6 +80,9 @@
                                 <div class="col-12 text-sm">
                                     {{ $order->address }}
                                 </div>
+                                <div class="col-12 mt-2 text-sm fw-bold">
+                                    Shipping Cost - {{ $order->shipping_cost }}
+                                </div>
                                 <div class="col-12"><hr class="border-primary border-2"></div>
                                 <div class="col-12 p-3 fw-bold">
                                     Products
