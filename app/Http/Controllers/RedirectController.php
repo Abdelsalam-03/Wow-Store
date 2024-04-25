@@ -11,7 +11,7 @@ class RedirectController extends Controller
     {
         if (Auth::check()) {
             $role = Auth::user()->role;
-            if ($role  == 'admin') {
+            if ($role  == 'admin' || $role  == 'manager') {
                 return redirect(route('admin.home'));
             } elseif ($role  == 'user') {
                 return redirect(route('home'));
