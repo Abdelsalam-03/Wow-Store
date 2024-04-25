@@ -46,10 +46,17 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            {{-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+            @if (!$setted)
+            <div class="alert alert-danger">
+                Aplication Settings Is Not Setted Yet. <a href="{{ route('admin.settings.create') }}" class="link-danger">Set Now</a>
+            </div>
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                    </div>
                 </div>
-            </div> --}}
+            @else
+                <a href="{{ route('admin.settings') }}">Settings</a>
+            @endif
 
             <div class="p-4 sm:p-8">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">

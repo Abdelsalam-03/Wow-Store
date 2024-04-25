@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Manager\AdminController;
 use App\Http\Controllers\OrderController as UserOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Middleware\admin;
 use App\Http\Middleware\manager;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,10 @@ Route::middleware(['auth', admin::class])->group(function (){
         Route::patch('/orders/ship/{order}', [AdminOrderController::class, 'ship'])->name('orders.ship');
         Route::patch('/orders/arrive/{order}', [AdminOrderController::class, 'arrive'])->name('orders.arrive');
         Route::post('/orders/search', [AdminOrderController::class, 'search'])->name('orders.search');
+        Route::get('/settings', [AdminSettingsController::class, 'view'])->name('settings');
+        Route::get('/settings/create', [AdminSettingsController::class, 'create'])->name('settings.create');
+        Route::post('/settings/set', [AdminSettingsController::class, 'set'])->name('settings.set');
+        Route::put('/settings/update', [AdminSettingsController::class, 'update'])->name('settings.update');
     });
 });
 Route::middleware(['auth', manager::class])->group(function (){
