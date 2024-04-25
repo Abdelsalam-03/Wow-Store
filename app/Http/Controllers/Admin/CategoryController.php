@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use app\http\Controllers\Controller;
 use App\models\Category;
 use App\Models\Product;
+use App\Models\Settings;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.categories.index', ['categories' => Category::filter($request)->paginate(10)]);
+        return view('admin.categories.index', [
+            'categories' => Category::filter($request)->paginate(10),
+            'settings' => Settings::settings(),
+        ]);
     }
 
     /**

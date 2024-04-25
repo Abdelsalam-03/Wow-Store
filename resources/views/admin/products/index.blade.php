@@ -83,7 +83,7 @@
                     <hr class="border-danger">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-4 justify-content-center">
                         @foreach ($products as $product)
-                            <x-admin-product :product="$product" />
+                            <x-admin-product :product="$product" :settings="$settings" />
                         @endforeach
                     </div>
                     @if ($products->hasPages())

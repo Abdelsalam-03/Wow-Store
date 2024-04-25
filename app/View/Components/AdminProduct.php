@@ -9,14 +9,16 @@ use Illuminate\View\Component;
 class AdminProduct extends Component
 {
     public $product;
+    public $settings;
     
     /**
      * Create a new component instance.
      */
 
-    public function __construct($product)
+    public function __construct($product, $settings)
     {
         $this->product = $product;
+        $this->settings = $settings;
     }
 
     /**

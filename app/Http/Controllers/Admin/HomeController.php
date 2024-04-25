@@ -17,7 +17,7 @@ class HomeController extends Controller
                         ->get();
         return view('admin.index', [
             'role' => Auth::user()->role,
-            'setted' => Settings::setted(),
+            'settings' => Settings::settings(),
             'pendingOrders' => $pendingOrders,
         ]);
     }

@@ -21,7 +21,7 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center bg-white rounded shadow p-4">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{$product->photo ? asset('storage/' . $product->photo) : 'https://dummyimage.com/600x700/dee2e6/6c757d.jpg'}}" alt="..." /></div>
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{$product->photo ? asset('storage/' . $product->photo) : asset('storage/' . $settings->default_products_photo) }}" alt="..." /></div>
                 <div class="col-md-6">
                     <div class="small mb-1">Category: {{ $product->category->name }}</div>
                     <h1 class="display-5 fw-bolder">{{ $product->name }}</h1>

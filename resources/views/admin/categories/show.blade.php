@@ -25,7 +25,7 @@
                     <h3 class="text-center">Related Products</h3>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center gy-4">
                         @foreach ($products as $product)
-                            <x-admin-product :product="$product"/>
+                            <x-admin-product :product="$product" :settings="$settings"/>
                         @endforeach
                     </div>
                     @if ($products->hasPages())

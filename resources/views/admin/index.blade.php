@@ -18,7 +18,7 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if (!$setted)
+            @if (!$settings)
                 <div class="alert alert-danger">
                     Aplication Settings Is Not Setted Yet. <a href="{{ route('admin.settings.create') }}" class="link-danger">Set Now</a>
                 </div>

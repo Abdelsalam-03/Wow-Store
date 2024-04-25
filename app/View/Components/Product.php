@@ -13,11 +13,13 @@ class Product extends Component
      */
 
     public $product;
+    public $settings;
     public $guest;
 
-    public function __construct($product, $guest = false)
+    public function __construct($product, $settings, $guest = false)
     {
         $this->product = $product;
+        $this->settings = $settings;
         $this->guest = $guest;
     }
 

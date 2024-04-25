@@ -125,9 +125,9 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
                     @foreach ($products as $product)
                         @guest
-                            <x-product :product="$product" :guest="true" />
+                            <x-product :product="$product" :guest="true" :settings="$settings" />
                         @else
-                            <x-product :product="$product" />
+                            <x-product :product="$product" :settings="$settings"/>
                         @endguest
                     @endforeach
                 </div>

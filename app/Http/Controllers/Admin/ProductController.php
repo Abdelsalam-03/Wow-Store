@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,10 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.products.index', ['products' => Product::filter($request)->paginate(10)]);
+        return view('admin.products.index', [
+            'products' => Product::filter($request)->paginate(10),
+            'settings' => Settings::settings(),
+        ]);
     }
 
     /**
@@ -71,6 +75,7 @@ class ProductController extends Controller
         return view('admin.products.show', [
             'product' => $product,
             'onCart' => $product->onCart,
+            'settings' => Settings::settings(),
         ]);
     }
 
