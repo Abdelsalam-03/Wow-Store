@@ -44,7 +44,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight m-0">
                 Admins
             </h2>
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Add Admin</a>
+            <a href="{{ route('manager.admins.create') }}" class="btn btn-primary">Add Admin</a>
         </div>
     </x-slot>
     @if (count($admins))

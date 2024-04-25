@@ -62,6 +62,8 @@ Route::middleware(['auth', admin::class])->group(function (){
 Route::middleware(['auth', manager::class])->group(function (){
     Route::prefix('manager/')->name('manager.')->group(function(){
         Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
+        Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
+        Route::post('/admins/store', [AdminController::class, 'store'])->name('admins.store');
         Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->name('admins.delete');
     });
 });
