@@ -19,22 +19,44 @@
             <a href="{{ route('manager.admins.create') }}" class="btn btn-primary">Add Admin</a>
         </div>
     </x-slot>
-    @if (count($admins))
+    
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg d-flex flex-column gap-3">
+                <form action="" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="email" class="form-control" value="{{ isset($_GET['email'])? $_GET['email']: '' }}">
+                        <input type="submit" value="Find" class="btn btn-dark">
+                    </div>
+                </form>
+            @if (count($admins))
                 <div class="d-flex flex-column">
+                    <div class="row align-items-center">
+                        <div class="text-center col-3 ">
+                            Name
+                        </div>
+                        <div class="text-center col-6 ">
+                            Email
+                        </div>
+                        <div class="col-3">
+                            Actions
+                        </div>
+                    </div>
+                    <hr>
                     @foreach ($admins as $admin)
                         <div class="row align-items-center">
-                            <div class="text-center col-6 ">
+                            <div class="text-center col-3 ">
                                 {{ $admin->name }}
                             </div>
-                            <div class="col-6">
-                                <div class="d-flex flex-row justify-content-center gap-3">
-                                    <form action="{{ route('manager.admins.delete', ['admin' => $admin->id]) }}" method="POST">
+                            <div class="text-center col-6 ">
+                                {{ $admin->email }}
+                            </div>
+                            <div class="col-3">
+                                <div class="d-flex flex-wrap gap-3">
+                                    <form action="{{ route('manager.admins.suspend', ['admin' => $admin->id]) }}" method="POST">
                                         @csrf 
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">Suspend</button>
                                     </form>
                                 </div>
                             </div>
@@ -47,13 +69,13 @@
                         </div>
                     @endif
                 </div>
+                @else
+                <div class="p-4 text-center text-danger">
+                    <h2>There is no Admins to show.</h2>
+                </div>
+                @endif
             </div>
         </div>
     </div>
         
-    @else
-    <div class="p-4 text-center bg-white text-danger shadow">
-        <h2>There is no Admins to show.</h2>
-    </div>
-    @endif
 </x-app-layout>

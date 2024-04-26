@@ -16,10 +16,14 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $admins = User::select()->where('role', '=', 'admin');
+        if ($request->email) {
+            $admins = $admins->where('email', 'like', '%' . $request->email . '%');
+        }
         return view('manager.admins.index', [
-            'admins' => User::select()->where('role', '=', 'admin')->paginate(10),
+            'admins' => $admins->paginate(10),
         ]);
     }
 
@@ -37,29 +41,25 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'exists:'.User::class],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'admin',
-        ]);
-
+        $user = User::select()
+                    ->where('email', '=', $request->email)
+                    ->first();
+        
+        $user->role = 'admin';
+        
+        $user->save();
 
         return redirect(route('manager.admins.index'))->with('success', 'Created Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function suspend(Request $request)
     {
-        $admin = User::findOrFail($id);
-        $admin->delete();
-        return redirect(route('manager.admins.index'))->with('success', 'Deleted Successfully');
+        $admin = User::findOrFail($request->admin);
+        $admin->role = 'user';
+        $admin->save();
+        return redirect(route('manager.admins.index'))->with('success', 'Suspended Successfully');
     }
 }
