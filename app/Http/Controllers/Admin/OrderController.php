@@ -33,7 +33,16 @@ class OrderController extends Controller
     public function cancel(string $id)
     {
         $order = Order::findOrFail($id);
-        $order->status = 'canceled';
+        if ($order->status == 'pending') {
+            $order->status = 'canceled';
+        } else {
+            $products = $order->products;
+            foreach ($products as $product) {
+                $stock = Product::find($product->product_id);
+                $stock->stock = $stock->stock + $product->quantity;
+                $stock->save();
+            }
+        }
         $order->save();
 
         return redirect()->back()->with('success', 'Order Canceled');

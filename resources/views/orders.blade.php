@@ -113,7 +113,7 @@
                                         
                                     @endif
                                 @endforeach
-                                @if ($order->status == 'pending')
+                                @if ($order->status != 'delivered' && $order->status != 'canceled')
                                     <div class="col-12"><hr class="border-primary"></div>
                                     <div class="col-12 text-end">
                                         <form action="{{ route('user.orders.delete', ['order' => $order->id]) }}" method="POST">

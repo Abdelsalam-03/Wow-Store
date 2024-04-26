@@ -78,7 +78,7 @@
                                     Products
                                 </div>
                                 <div class="col-4 text-sm fw-bold">
-                                    name
+                                    item
                                 </div>
                                 <div class="col-4 text-sm fw-bold">
                                     Quantity
