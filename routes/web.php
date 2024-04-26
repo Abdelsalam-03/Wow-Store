@@ -17,18 +17,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Middleware\admin;
+use App\Http\Middleware\guestToHome;
 use App\Http\Middleware\manager;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('/redirect', RedirectController::class)->name('redirect');
+Route::get('/redirect', RedirectController::class)->middleware(guestToHome::class, 'verified')->name('redirect');
 
 // Route::get('/dashboard', function () {
-//     return redirect(route('redirect'));
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+    //     return redirect(route('redirect'));
+    // })->middleware(['auth', 'verified'])->name('dashboard');
+    
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', admin::class])->group(function (){
+Route::middleware(['auth', 'verified', admin::class])->group(function (){
     Route::prefix('admin/')->name('admin.')->group(function(){
         Route::get('/', AdminHomeController::class)->name('home');
         Route::resource('/categories', AdminCategoryController::class);
@@ -65,7 +66,7 @@ Route::middleware(['auth', admin::class])->group(function (){
         Route::put('/settings/update', [AdminSettingsController::class, 'update'])->name('settings.update');
     });
 });
-Route::middleware(['auth', manager::class])->group(function (){
+Route::middleware(['auth', 'verified', manager::class])->group(function (){
     Route::prefix('manager/')->name('manager.')->group(function(){
         Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
         Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');

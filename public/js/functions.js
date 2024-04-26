@@ -16,7 +16,7 @@ function viewAlert(type, message){
     document.body.appendChild(alertBody);
     setTimeout(function (){
         closeButton.click();
-    }, 2000)
+    }, 1000)
 }
 
 function cart() {
