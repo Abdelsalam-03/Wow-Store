@@ -30,9 +30,11 @@ function cart() {
     .then(response => response.json())
     .then(data => {
         if (data.length > 0) {
-            cartIndicator = document.getElementById('cart-indicator');
+            cartIndicator = document.querySelectorAll('#cart-indicator');
             if(cartIndicator){
-                cartIndicator.classList.remove('d-none');
+                cartIndicator.forEach(element => {
+                    element.classList.remove('d-none');
+                })
             }
         }
     })
@@ -67,10 +69,12 @@ function addToCart(id, quantity = null) {
       })
       .then(data => {
         viewAlert('success', data.message);
-        cartIndicator = document.getElementById('cart-indicator');
-        if (cartIndicator) {
-            cartIndicator.classList.remove('d-none');
-        }
+        cartIndicator = document.querySelectorAll('#cart-indicator');
+            if(cartIndicator){
+                cartIndicator.forEach(element => {
+                    element.classList.remove('d-none');
+                })
+            }
       })
     .catch(error => {
     });
@@ -99,15 +103,22 @@ function liveSearch(query) {
             product = document.createElement('div');
             product.classList.add('d-flex', 'align-items-center');
             product_link = document.createElement('a');
+            product_info = document.createElement('p');
             product_name = document.createElement('p');
+            product_description = document.createElement('p');
             product_price = document.createElement('p');
             product_link.setAttribute('href', '/products/' + element.id);
-            product_link.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'flex-1', 'p-3', 'live-search-link');
-            product_name.classList.add('m-0', 'fw-bold');
-            product_price.classList.add('m-0');
+            product_link.classList.add('d-flex', 'justify-content-between', 'flex-1', 'p-3', 'live-search-link', 'text-decoration-none');
+            product_info.classList.add('d-flex','flex-column', 'flex-1');
+            product_name.classList.add('m-0', 'fw-bold', 'fs-5', 'text-decoration-underline');
+            product_description.classList.add('m-0','fs-6', 'text-dark');
+            product_price.classList.add('m-0', 'fs-5');
             product_name.innerHTML = element.name;
+            product_description.innerHTML = element.description;
             product_price.innerHTML = "Price : " + element.price;
-            product_link.appendChild(product_name);
+            product_info.appendChild(product_name);
+            product_info.appendChild(product_description);
+            product_link.appendChild(product_info);
             product_link.appendChild(product_price);
             product.appendChild(product_link);
             resultsPanel.appendChild(product);

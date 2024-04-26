@@ -21,8 +21,18 @@
 }
 .gradient-background{
     background-color: #63aff7;
-    background-image: linear-gradient(62deg, #21252985 0%, #414548 100%);
+    background-image: linear-gradient(20deg, #414548 80%, #21252985 100%);
+    /* background-image: linear-gradient(62deg, #21252985 90%, #414548 100%); */
 }
 .width-limit{
     max-height: 100vh;
+}
+.hidden {
+    display: none;
+}
+
+#scrollButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

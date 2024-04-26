@@ -66,7 +66,11 @@ class Product extends Model
                 $order = 'asc';
             }
             $products = $products->orderBy($orderBy, $order);
+        } else {
+            $products = $products->orderBy('category_id', 'desc');
         }
+
+        $products = $products->orderBy('id', 'desc');
         
         return $products;
     }

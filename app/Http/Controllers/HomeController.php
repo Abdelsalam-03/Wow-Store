@@ -14,8 +14,8 @@ class HomeController extends Controller
     {
         $request->merge(['onStock' => true]);
         return view('index', [
-            'products' => Product::filter($request)->paginate(10),
-            'categories' => Category::all(),
+            'products' => Product::filter($request)->paginate(12),
+            'categories' => Category::select()->orderBy('id', 'desc')->get(),
             'settings' => Settings::settings(),
         ]);
     }

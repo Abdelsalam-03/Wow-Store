@@ -29,13 +29,13 @@
             <div class="row gx-4 gx-lg-5 align-items-center bg-white p-4 rounded shadow">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ $product->photo ? asset('storage/' . $product->photo) : asset('storage/' . $settings->default_products_photo) }}" alt="Product Image" /></div>
                 <div class="col-md-6">
-                    <div class="small mb-1">Category: {{ $product->category->name }}</div>
-                    <h1 class="display-5 fw-bolder">{{ $product->name }}</h1>
-                    <div class="fs-5 mb-4">
+                    <div class="small mb-1"><a href="/?category={{ $product->category_id }}#products" class="link-secondary">Category: {{ $product->category->name }}</a></div>
+                    <h1 class="display-5 fw-bolder text-primary">{{ $product->name }}</h1>
+                    <div class="fs-6 mb-4 fw-bold">
                         {{-- <span class="text-decoration-line-through text-secondary">{{ $product->price + floor($product->price / 10) }}</span> --}}
-                        <span>{{ $product->price }}</span>
+                        <span>Price: {{ $product->price }}</span>
                     </div>
-                    <p class="lead">{{ isset($product->description) ? $product->description : "" }}</p>
+                    <p class="lead text-secondary fs-6">{{ isset($product->description) ? $product->description : "" }}</p>
                     <form action="{{ route('cart.add') }}" method="POST" class="d-flex">
                         @csrf
                         <input type="hidden" name="productId" value="{{ $product->id }}">
@@ -58,6 +58,25 @@
             </div>
         </div>
     </section>
+    
+
+    @if (count($relatedProducts) > 1)
+        <section class="py-3 bg-white">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">Related products</h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    @foreach ($relatedProducts as $relatedProduct)
+                        @if ($relatedProduct->id != $product->id)
+                            <div class="col mb-5">
+                                <x-product :product="$relatedProduct" :settings="$settings" />
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     <script>
         cart();
     </script>

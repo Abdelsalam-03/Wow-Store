@@ -24,7 +24,9 @@
             My Orders
         </x-responsive-nav-link>
     </x-slot>
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    
+
+    <div id="carouselExampleControls" class="carousel slide px-0 container-xxl" data-bs-ride="carousel">
         <div class="carousel-inner width-limit">
             @php
                 $activated = false;
@@ -32,8 +34,9 @@
             @foreach ($categories as $category)
                 @if ($category->photo && $category->stock())
                     <div class="carousel-item {{ !$activated ? 'active' : '' }}">
-                        <a href="?category={{ $category->id }}#products">
-                            <img src="{{ asset('storage/' . $category->photo) }}" class="d-block w-100 mh-100" alt="...">
+                        <a href="?category={{ $category->id }}#products" class="position-relative">
+                            <img src="{{ asset('storage/' . $category->photo) }}" class="d-block w-100 mh-100" alt="Category Image">
+                            <span class="d-block position-absolute start-0 top-0 p-4 bg-black w-100 h-100 opacity-50"></span>
                         </a>
                     </div>
                     @php
@@ -167,7 +170,23 @@
         </div>
     </div>
     @auth
+    <a href="{{ route('cart') }}" type="button" class="btn btn-primary hidden" id="scrollButton">
+        <i class="fas fa-shopping-cart position-relative">
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle d-none" id="cart-indicator">
+            </span>
+        </i>
+    </a>
     <script>
+        var scrollButton = document.getElementById('scrollButton');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                scrollButton.classList.remove('hidden');
+            } else {
+                scrollButton.classList.add('hidden');
+            }
+        });
+
         cart();
     </script>
     @endauth
