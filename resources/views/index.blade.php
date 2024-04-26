@@ -26,6 +26,19 @@
     </x-slot>
     
 
+    <div class="bg-white shadow">
+        <div class="container">
+            <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
+                <a href="{{ route('home') }}#products"class="btn btn-sm bg-gradient {{ isset($_GET['category'])? 'btn-dark' : 'btn-outline-dark'}}">All</a>
+                @foreach ($categories as $category)
+                    @if ($category->stock())
+                        <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm bg-gradient {{ isset($_GET['category']) && $_GET['category'] == $category->id ?'btn-outline-dark': 'btn-dark'}}">{{ $category->name }}</a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <div id="carouselExampleControls" class="carousel slide px-0 container-xxl" data-bs-ride="carousel">
         <div class="carousel-inner width-limit">
             @php
@@ -55,18 +68,7 @@
         </button>
     </div>
 
-    <div class="bg-white shadow">
-        <div class="container">
-            <div class="links d-flex flex-wrap gap-2 p-3 justify-content-center">
-                <a href="{{ route('home') }}#products"class="btn btn-sm btn-outline-dark">All</a>
-                @foreach ($categories as $category)
-                    @if ($category->stock())
-                        <a href="{{ '?category=' . $category->id }}#products" style="white-space: nowrap;" class="btn btn-sm btn-dark bg-gradient">{{ $category->name }}</a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
+
     <div class="py-6 gradient-background">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"> 
             <div class="p-4 rounded d-flex flex-column gap-4">
@@ -170,7 +172,7 @@
         </div>
     </div>
     @auth
-    <a href="{{ route('cart') }}" type="button" class="btn btn-primary hidden" id="scrollButton">
+    <a href="{{ route('cart') }}" type="button" class="btn btn-primary view-on-scroll" id="scrollButton">
         <i class="fas fa-shopping-cart position-relative">
             <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle d-none" id="cart-indicator">
             </span>
@@ -181,9 +183,9 @@
 
         window.addEventListener('scroll', function() {
             if (window.scrollY > 500) {
-                scrollButton.classList.remove('hidden');
+                scrollButton.classList.remove('view-on-scroll');
             } else {
-                scrollButton.classList.add('hidden');
+                scrollButton.classList.add('view-on-scroll');
             }
         });
 
