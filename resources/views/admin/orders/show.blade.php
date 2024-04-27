@@ -146,6 +146,13 @@
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">Cancel Order</button>
                                             </form>
+                                        @elseif($order->status != 'canceled' && $order->status != 'delivered')
+                                            <form action="{{ route('admin.orders.delete', ['order' => $order->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger">Cancel Order</button>
+                                            </form>
+
                                         @endif
                                 </div>
                             </div>

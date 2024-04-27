@@ -42,6 +42,7 @@ class OrderController extends Controller
                 $stock->stock = $stock->stock + $product->quantity;
                 $stock->save();
             }
+            $order->status = 'canceled';
         }
         $order->save();
 
