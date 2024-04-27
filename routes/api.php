@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryControl
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\LiveController;
 use App\Http\Controllers\Api\V1\Manager\AdminController as ManagerAdminController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SettingsController;
@@ -20,7 +21,7 @@ Route::prefix('v1')->group(function(){
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/products/{product}', [ProductController::class, 'show']);
     Route::get('/categories', [CategoryController::class, 'all']);
-
+    Route::get('/livesearch', [LiveController::class, 'liveSearch']);
 
     // Admin Middleware
     Route::prefix('admin')->group(function(){
