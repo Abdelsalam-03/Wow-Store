@@ -26,6 +26,7 @@ Route::get('/user', function (Request $request) {
 Route::prefix('v1')->group(function(){
 
     Route::post('/login', [UserController::class, 'login']);
+    Route::post('/register', [UserController::class, 'register']);
     Route::get('/settings', SettingsController::class);
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/products/{product}', [ProductController::class, 'show']);
