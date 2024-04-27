@@ -75,6 +75,6 @@ Route::middleware(['auth', 'verified', manager::class])->group(function (){
     });
 });
 
-Route::get('/products/{product}', UserProductController::class . '@show')->name('user.product');  
+Route::get('/products/{product}', [UserProductController::class, 'show'])->name('user.product');  
 
 Route::get('/livesearch', [LiveController::class, 'liveSearch']);
