@@ -18,7 +18,7 @@ class CartController extends Controller
     function add(REQUEST $request)
     {
         $data = $request->all();
-        $product = Product::find($data['productId']);
+        $product = Product::find($data['product_id']);
         $quantity = $request->quantity ? intval($request->quantity) : 1;
         if ($product) {
             if (+$product->stock < $quantity) {

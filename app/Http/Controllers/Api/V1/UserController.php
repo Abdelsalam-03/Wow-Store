@@ -38,4 +38,11 @@ class UserController extends Controller
 
         return response()->json(['_token' => $token]);
     }
+
+    function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'logged out']);
+    }
+
 }

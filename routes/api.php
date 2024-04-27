@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\SettingsController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Middleware\Api\admin;
 use App\Http\Middleware\Api\manager;
+use App\Http\Middleware\Api\verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,14 +26,15 @@ Route::get('/user', function (Request $request) {
 Route::prefix('v1')->group(function(){
 
     Route::post('/login', [UserController::class, 'login']);
-    Route::get('/settings', SettingsController::class)->middleware('auth:sanctum');
+    Route::get('/settings', SettingsController::class);
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/products/{product}', [ProductController::class, 'show']);
     Route::get('/categories', [CategoryController::class, 'all']);
     Route::get('/livesearch', [LiveController::class, 'liveSearch']);
     
+    Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
     // Auth Middleware
-    Route::middleware('auth:sanctum')->group(function(){
+    Route::middleware('auth:sanctum', verified::class)->group(function(){
         Route::get('/cart/all', [CartController::class, 'all']);
         Route::post('/cart/add', [CartController::class, 'add']);
         Route::patch('/cart/update/{product}', [CartController::class, 'update']);
