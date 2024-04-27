@@ -172,7 +172,7 @@
         </div>
     </div>
     @auth
-    <a href="{{ route('cart') }}" type="button" class="btn btn-primary view-on-scroll" id="scrollButton">
+    <a href="{{ route('cart') }}" type="button" class="btn btn-dark view-on-scroll" id="scrollButton">
         <i class="fas fa-shopping-cart position-relative">
             <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle d-none" id="cart-indicator">
             </span>
