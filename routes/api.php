@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\LiveController;
 use App\Http\Controllers\Api\V1\Manager\AdminController as ManagerAdminController;
+use App\Http\Controllers\Api\V1\OrderController as UserOrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SettingsController;
 use Illuminate\Http\Request;
@@ -23,13 +24,15 @@ Route::prefix('v1')->group(function(){
     Route::get('/products/{product}', [ProductController::class, 'show']);
     Route::get('/categories', [CategoryController::class, 'all']);
     Route::get('/livesearch', [LiveController::class, 'liveSearch']);
+    Route::get('/orders', [UserOrderController::class, 'all']);
+    Route::delete('/orders/{order}', [UserOrderController::class, 'delete']);
 
     // Auth Middleware
     Route::get('/cart/all', [CartController::class, 'all']);
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
-    Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/add', [CartController::class, 'add']);
+    Route::patch('/cart/update/{product}', [CartController::class, 'update']);
+    Route::delete('/cart/destroy', [CartController::class, 'destroy']);
+    Route::delete('/cart/{product}', [CartController::class, 'remove']);
     
 
     // Admin Middleware
