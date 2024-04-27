@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Api\V1\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SettingsController;
@@ -27,7 +28,8 @@ Route::prefix('v1')->group(function(){
         Route::delete('/orders/cancel/{order}', [AdminOrderController::class, 'cancel']);
         Route::patch('/orders/process/{order}', [AdminOrderController::class, 'process']);
         Route::patch('/orders/ship/{order}', [AdminOrderController::class, 'ship']);
-        Route::patch('/orders/arrive/{order}', [AdminOrderController::class, 'arrive'])->name('orders.arrive');
+        Route::patch('/orders/arrive/{order}', [AdminOrderController::class, 'arrive']);
+        Route::post('/settings/set', [AdminSettingsController::class, 'set'])->name('settings.set');
 
     });
 
@@ -35,9 +37,6 @@ Route::prefix('v1')->group(function(){
 
 
 // Route::prefix('admin/')->name('admin.')->group(function(){
-//     Route::get('/settings', [AdminSettingsController::class, 'view'])->name('settings');
-//     Route::get('/settings/create', [AdminSettingsController::class, 'create'])->name('settings.create');
-//     Route::post('/settings/set', [AdminSettingsController::class, 'set'])->name('settings.set');
 //     Route::put('/settings/update', [AdminSettingsController::class, 'update'])->name('settings.update');
 // });
 
