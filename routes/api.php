@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SettingsController;
@@ -18,6 +19,7 @@ Route::prefix('v1')->group(function(){
     Route::get('/categories', [CategoryController::class, 'all']);
 
     Route::apiResource('/categories', AdminCategoryController::class);
+    Route::apiResource('/products', AdminProductController::class);
 
 });
 
