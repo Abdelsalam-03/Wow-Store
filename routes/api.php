@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\LiveController;
 use App\Http\Controllers\Api\V1\Manager\AdminController as ManagerAdminController;
@@ -22,6 +23,14 @@ Route::prefix('v1')->group(function(){
     Route::get('/products/{product}', [ProductController::class, 'show']);
     Route::get('/categories', [CategoryController::class, 'all']);
     Route::get('/livesearch', [LiveController::class, 'liveSearch']);
+
+    // Auth Middleware
+    Route::get('/cart/all', [CartController::class, 'all']);
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::delete('/cart/{product}', [CartController::class, 'remove'])->name('cart.remove');
+    
 
     // Admin Middleware
     Route::prefix('admin')->group(function(){
